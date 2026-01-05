@@ -1,0 +1,165 @@
+
+import React, { useState, useRef } from 'react';
+import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
+import { X, Plus, Minus, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { useCart } from '../context/CartContext';
+
+const CartDrawer: React.FC = () => {
+  const { cart, isCartOpen, setIsCartOpen, removeFromCart, updateQuantity, totalPrice } = useCart();
+  const [isProcessed, setIsProcessed] = useState(false);
+  
+  const constraintsRef = useRef(null);
+  const x = useMotionValue(0);
+  
+  // Transform x position to opacity and color changes
+  const opacity = useTransform(x, [0, 280], [1, 0]);
+  const bgColor = useTransform(x, [0, 280], ["#0ea5e9", "#22c55e"]);
+
+  const handleDragEnd = () => {
+    // If dragged more than 90% of the container (approx 280px in max-w-md drawer)
+    if (x.get() > 250) {
+      setIsProcessed(true);
+      setTimeout(() => {
+        alert("TRANSACTION SECURED. WELCOME TO THE ELITE.");
+        setIsProcessed(false);
+        x.set(0);
+        setIsCartOpen(false);
+      }, 1000);
+    } else {
+      // Snap back if not completed
+      x.set(0);
+    }
+  };
+
+  return (
+    <AnimatePresence>
+      {isCartOpen && (
+        <>
+          {/* Overlay */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsCartOpen(false)}
+            className="fixed inset-0 bg-black/80 backdrop-blur-md z-50"
+          />
+
+          {/* Drawer */}
+          <motion.div
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            className="fixed top-0 right-0 h-full w-full max-w-md bg-zinc-950 titanium-border border-l z-50 p-8 flex flex-col"
+          >
+            <div className="flex justify-between items-center mb-12">
+              <h2 className="brand-font text-xl text-white tracking-widest">Your Armor</h2>
+              <button onClick={() => setIsCartOpen(false)}>
+                <X className="w-6 h-6 text-slate-400 hover:text-white transition-colors" />
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto space-y-8 pr-2">
+              {cart.length === 0 ? (
+                <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
+                  <p className="text-slate-500 brand-font text-xs uppercase tracking-widest">The armory is empty</p>
+                  <button 
+                    onClick={() => setIsCartOpen(false)}
+                    className="text-sky-400 brand-font text-[10px] underline underline-offset-4 uppercase"
+                  >
+                    Go choose your gear
+                  </button>
+                </div>
+              ) : (
+                cart.map((item) => (
+                  <motion.div 
+                    layout
+                    key={`${item.id}-${item.selectedSize}`} 
+                    className="flex gap-4 group"
+                  >
+                    <div className="w-20 h-24 bg-zinc-900 overflow-hidden flex-shrink-0 border border-white/5">
+                      <img src={item.image} className="w-full h-full object-cover" alt={item.name} />
+                    </div>
+                    <div className="flex-1 flex flex-col justify-between">
+                      <div>
+                        <div className="flex justify-between">
+                          <h3 className="brand-font text-[10px] text-white tracking-widest">{item.name}</h3>
+                          <button onClick={() => removeFromCart(item.id, item.selectedSize)}>
+                            <X className="w-3 h-3 text-slate-600 hover:text-red-500 transition-colors" />
+                          </button>
+                        </div>
+                        <p className="text-[10px] text-slate-500 uppercase mt-1">Size: {item.selectedSize}</p>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center gap-4 bg-zinc-900/50 p-1 px-3 border border-white/5">
+                          <button onClick={() => updateQuantity(item.id, item.selectedSize, -1)}>
+                            <Minus className="w-3 h-3 text-slate-400 hover:text-white" />
+                          </button>
+                          <span className="text-xs font-mono text-white">{item.quantity}</span>
+                          <button onClick={() => updateQuantity(item.id, item.selectedSize, 1)}>
+                            <Plus className="w-3 h-3 text-slate-400 hover:text-white" />
+                          </button>
+                        </div>
+                        <p className="brand-font text-sky-400 text-xs">${item.price * item.quantity}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))
+              )}
+            </div>
+
+            {cart.length > 0 && (
+              <div className="mt-8 pt-8 border-t border-white/5 space-y-8">
+                <div className="flex justify-between items-center">
+                  <span className="brand-font text-xs text-slate-400 tracking-widest">Total Investment</span>
+                  <span className="brand-font text-xl text-white tracking-tighter">${totalPrice}</span>
+                </div>
+
+                <div className="relative">
+                   <div 
+                    ref={constraintsRef}
+                    className="relative h-16 bg-zinc-900/50 rounded-full flex items-center p-1 border border-white/5 overflow-hidden"
+                   >
+                    {/* Background Text */}
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <motion.span 
+                        style={{ opacity }}
+                        className="brand-font text-[10px] tracking-[0.3em] text-slate-500 uppercase"
+                      >
+                        {isProcessed ? 'Verifying...' : 'Slide to Secure Armor'}
+                      </motion.span>
+                    </div>
+
+                    {/* Draggable Handle */}
+                    <motion.div
+                      drag="x"
+                      dragConstraints={{ left: 0, right: 300 }}
+                      dragElastic={0.1}
+                      style={{ x, backgroundColor: bgColor }}
+                      onDragEnd={handleDragEnd}
+                      className="h-14 w-14 rounded-full flex items-center justify-center text-white shadow-lg cursor-grab active:cursor-grabbing z-20"
+                    >
+                      {isProcessed ? (
+                        <CheckCircle2 className="w-6 h-6" />
+                      ) : (
+                        <ChevronRight className="w-6 h-6" />
+                      )}
+                    </motion.div>
+
+                    {/* Success Track */}
+                    <motion.div 
+                      className="absolute left-1 top-1 bottom-1 bg-sky-500/20 rounded-full"
+                      style={{ width: x }}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+};
+
+export default CartDrawer;
