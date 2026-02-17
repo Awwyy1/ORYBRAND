@@ -14,7 +14,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, onNavigate }) => {
     { label: 'Collection', id: null, scroll: 'shop' },
     { label: 'Philosophy', id: 'philosophy' },
     { label: 'Technology', id: 'technology' },
-    { label: 'Logistics', id: 'shipping' },
+    { label: 'Shipping', id: 'shipping' },
     { label: 'Support', id: 'returns' },
   ];
 
@@ -71,9 +71,9 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, onNavigate }) => {
 
             <div className="mt-auto">
               <p className="brand-font text-[10px] text-slate-600 uppercase tracking-widest leading-loose">
-                ORY INDUSTRIES<br/>
-                PREMIUM SILK ENGINEERING<br/>
-                v1.0.4 "TITANIUM"
+                ORY<br/>
+                PREMIUM SILK<br/>
+                EST. 2024
               </p>
             </div>
           </motion.div>

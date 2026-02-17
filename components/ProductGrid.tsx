@@ -6,7 +6,7 @@ const ProductGrid: React.FC = () => {
   return (
     <section id="shop" className="py-24 px-6 md:px-12 bg-[#0F0F0F]">
       <div className="mb-16">
-        <h2 className="brand-font text-3xl mb-4">The Armory</h2>
+        <h2 className="brand-font text-3xl mb-4">The Collection</h2>
         <div className="w-20 h-1 bg-sky-500"></div>
       </div>
 

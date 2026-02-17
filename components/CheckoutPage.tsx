@@ -25,7 +25,7 @@ const CheckoutPage: React.FC = () => {
     return (
       <div className="min-h-screen bg-[#0F0F0F] pt-40 flex flex-col items-center justify-center text-center px-6">
         <h1 className="brand-font text-4xl text-white mb-4">Cart is Empty</h1>
-        <p className="text-slate-400 mb-8">Add some armor before checking out.</p>
+        <p className="text-slate-400 mb-8">Your bag is empty. Add something bold.</p>
         <button
           onClick={() => navigate('/')}
           className="brand-font text-xs tracking-widest text-sky-400 hover:text-white transition-colors"
@@ -63,10 +63,10 @@ const CheckoutPage: React.FC = () => {
         >
           <CheckCircle2 className="w-24 h-24 text-green-500 mb-8 mx-auto" />
         </motion.div>
-        <h1 className="brand-font text-4xl text-white mb-4">Transaction Secured</h1>
-        <p className="brand-font text-sm text-sky-400 tracking-[0.3em] mb-2">WELCOME TO THE ELITE</p>
+        <h1 className="brand-font text-4xl text-white mb-4">Order Confirmed</h1>
+        <p className="brand-font text-sm text-sky-400 tracking-[0.3em] mb-2">WELCOME TO THE CLUB</p>
         <p className="text-slate-400 max-w-md mb-12">
-          Your armor is being prepared for stealth delivery. You will receive a confirmation at your email.
+          Your order is on its way. Discreet packaging, obviously. You will receive a confirmation at your email.
         </p>
         <p className="text-slate-500 text-xs mb-8 italic">
           (This is a demo checkout — no real payment was processed)
@@ -75,7 +75,7 @@ const CheckoutPage: React.FC = () => {
           onClick={() => navigate('/')}
           className="brand-font text-xs tracking-widest text-sky-400 hover:text-white transition-colors"
         >
-          ← Return to Armory
+          ← Back to Shop
         </button>
       </motion.div>
     );
@@ -89,8 +89,8 @@ const CheckoutPage: React.FC = () => {
           transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
           className="w-12 h-12 border-2 border-sky-400 border-t-transparent rounded-full mb-8"
         />
-        <h2 className="brand-font text-xl text-white mb-2">Securing Transaction</h2>
-        <p className="text-slate-500 brand-font text-[10px] tracking-[0.3em] uppercase">Encrypting payment data...</p>
+        <h2 className="brand-font text-xl text-white mb-2">Placing Your Order</h2>
+        <p className="text-slate-500 brand-font text-[10px] tracking-[0.3em] uppercase">Processing payment...</p>
       </div>
     );
   }
@@ -107,10 +107,10 @@ const CheckoutPage: React.FC = () => {
           className="mb-8 flex items-center gap-2 text-slate-500 hover:text-white transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span className="brand-font text-[10px] tracking-widest uppercase">Back to Armory</span>
+          <span className="brand-font text-[10px] tracking-widest uppercase">Back to Shop</span>
         </button>
 
-        <h1 className="brand-font text-3xl md:text-4xl text-white mb-12">Secure Checkout</h1>
+        <h1 className="brand-font text-3xl md:text-4xl text-white mb-12">Checkout</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Form */}

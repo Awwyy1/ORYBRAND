@@ -65,7 +65,7 @@ const CartDrawer: React.FC = () => {
             className="fixed top-0 right-0 h-full w-full max-w-md bg-zinc-950 titanium-border border-l z-50 p-8 flex flex-col"
           >
             <div className="flex justify-between items-center mb-12">
-              <h2 className="brand-font text-xl text-white tracking-widest">Your Armor</h2>
+              <h2 className="brand-font text-xl text-white tracking-widest">Your Bag</h2>
               <button
                 onClick={() => setIsCartOpen(false)}
                 aria-label="Close cart"
@@ -77,12 +77,12 @@ const CartDrawer: React.FC = () => {
             <div className="flex-1 overflow-y-auto space-y-8 pr-2">
               {cart.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
-                  <p className="text-slate-500 brand-font text-xs uppercase tracking-widest">The armory is empty</p>
+                  <p className="text-slate-500 brand-font text-xs uppercase tracking-widest">Nothing here yet</p>
                   <button
                     onClick={() => setIsCartOpen(false)}
                     className="text-sky-400 brand-font text-[10px] underline underline-offset-4 uppercase"
                   >
-                    Go choose your gear
+                    Go find your fit
                   </button>
                 </div>
               ) : (
@@ -135,7 +135,7 @@ const CartDrawer: React.FC = () => {
             {cart.length > 0 && (
               <div className="mt-8 pt-8 border-t border-white/5 space-y-6">
                 <div className="flex justify-between items-center">
-                  <span className="brand-font text-xs text-slate-400 tracking-widest">Total Investment</span>
+                  <span className="brand-font text-xs text-slate-400 tracking-widest">Total</span>
                   <span className="brand-font text-xl text-white tracking-tighter">${totalPrice}</span>
                 </div>
 
