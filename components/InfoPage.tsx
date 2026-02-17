@@ -1,14 +1,12 @@
-
 import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { X, Shield, Truck, Zap, Eye, Quote } from 'lucide-react';
 
-interface InfoPageProps {
-  pageId: string;
-  onClose: () => void;
-}
+const InfoPage: React.FC = () => {
+  const { pageId } = useParams<{ pageId: string }>();
+  const navigate = useNavigate();
 
-const InfoPage: React.FC<InfoPageProps> = ({ pageId, onClose }) => {
   const getContent = () => {
     switch(pageId) {
       case 'philosophy':
@@ -69,7 +67,7 @@ const InfoPage: React.FC<InfoPageProps> = ({ pageId, onClose }) => {
   const content = getContent();
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       className="min-h-screen pt-40 pb-24 px-6 md:px-24 bg-[#0F0F0F]"
@@ -80,14 +78,14 @@ const InfoPage: React.FC<InfoPageProps> = ({ pageId, onClose }) => {
             {content.icon}
             <h1 className="brand-font text-4xl md:text-6xl text-white">{content.title}</h1>
           </div>
-          <button onClick={onClose} className="p-4 hover:bg-white/5 rounded-full transition-colors">
+          <button onClick={() => navigate('/')} className="p-4 hover:bg-white/5 rounded-full transition-colors">
             <X className="w-10 h-10 text-white" />
           </button>
         </div>
 
         <div className="space-y-24">
           {content.sections.map((sec, i) => (
-            <motion.div 
+            <motion.div
               key={i}
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -103,8 +101,8 @@ const InfoPage: React.FC<InfoPageProps> = ({ pageId, onClose }) => {
         </div>
 
         <div className="mt-32 pt-12 border-t border-white/5">
-          <button 
-            onClick={onClose}
+          <button
+            onClick={() => navigate('/')}
             className="brand-font text-xs tracking-widest text-white hover:text-sky-400 transition-colors"
           >
             ← Return to Main Deck

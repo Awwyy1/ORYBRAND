@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -9,23 +9,28 @@ import CartDrawer from './components/CartDrawer';
 import Footer from './components/Footer';
 import SideMenu from './components/SideMenu';
 import InfoPage from './components/InfoPage';
-import ProductDetail from './components/ProductDetail';
-import { Product } from './types';
+import ProductDetailPage from './components/ProductDetailPage';
+import CheckoutPage from './components/CheckoutPage';
+
+const HomePage: React.FC = () => (
+  <>
+    <Hero />
+    <Philosophy />
+    <ProductGrid />
+  </>
+);
 
 const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activePage, setActivePage] = useState<string | null>(null);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const navigate = useNavigate();
 
   const navigateTo = (page: string | null) => {
-    setActivePage(page);
-    setSelectedProduct(null);
     setIsMenuOpen(false);
-    window.scrollTo(0, 0);
-  };
-
-  const handleOpenProduct = (product: Product) => {
-    setSelectedProduct(product);
+    if (page === null) {
+      navigate('/');
+    } else {
+      navigate(`/${page}`);
+    }
     window.scrollTo(0, 0);
   };
 
@@ -33,27 +38,22 @@ const App: React.FC = () => {
     <CartProvider>
       <div className="relative min-h-screen bg-[#0F0F0F]">
         <Header onMenuOpen={() => setIsMenuOpen(true)} onHome={() => navigateTo(null)} />
-        
+
         <main>
-          {selectedProduct ? (
-            <ProductDetail product={selectedProduct} onClose={() => setSelectedProduct(null)} />
-          ) : activePage ? (
-            <InfoPage pageId={activePage} onClose={() => navigateTo(null)} />
-          ) : (
-            <>
-              <Hero />
-              <Philosophy />
-              <ProductGrid onProductClick={handleOpenProduct} />
-            </>
-          )}
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/product/:productId" element={<ProductDetailPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/:pageId" element={<InfoPage />} />
+          </Routes>
         </main>
 
         <Footer onNavigate={navigateTo} />
-        
-        <SideMenu 
-          isOpen={isMenuOpen} 
-          onClose={() => setIsMenuOpen(false)} 
-          onNavigate={navigateTo} 
+
+        <SideMenu
+          isOpen={isMenuOpen}
+          onClose={() => setIsMenuOpen(false)}
+          onNavigate={navigateTo}
         />
         <CartDrawer />
       </div>

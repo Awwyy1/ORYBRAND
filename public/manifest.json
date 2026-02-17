@@ -1,0 +1,16 @@
+{
+  "name": "ORY — Premium Silk Underwear",
+  "short_name": "ORY",
+  "description": "Luxury men's underwear engineered from 100% Grade 6A Mulberry Silk",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0F0F0F",
+  "theme_color": "#0F0F0F",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

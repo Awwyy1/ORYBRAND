@@ -1,34 +1,42 @@
-
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
-import { X, Plus, Minus, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { X, Plus, Minus, ChevronRight, ShoppingBag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 const CartDrawer: React.FC = () => {
+  const navigate = useNavigate();
   const { cart, isCartOpen, setIsCartOpen, removeFromCart, updateQuantity, totalPrice } = useCart();
-  const [isProcessed, setIsProcessed] = useState(false);
-  
-  const constraintsRef = useRef(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
+
   const x = useMotionValue(0);
-  
-  // Transform x position to opacity and color changes
   const opacity = useTransform(x, [0, 280], [1, 0]);
   const bgColor = useTransform(x, [0, 280], ["#0ea5e9", "#22c55e"]);
 
-  const handleDragEnd = () => {
-    // If dragged more than 90% of the container (approx 280px in max-w-md drawer)
-    if (x.get() > 250) {
-      setIsProcessed(true);
-      setTimeout(() => {
-        alert("TRANSACTION SECURED. WELCOME TO THE ELITE.");
-        setIsProcessed(false);
-        x.set(0);
+  // Close on Escape
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isCartOpen) {
         setIsCartOpen(false);
-      }, 1000);
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isCartOpen, setIsCartOpen]);
+
+  const handleDragEnd = () => {
+    if (x.get() > 250) {
+      setIsCartOpen(false);
+      navigate('/checkout');
+      x.set(0);
     } else {
-      // Snap back if not completed
       x.set(0);
     }
+  };
+
+  const handleCheckoutClick = () => {
+    setIsCartOpen(false);
+    navigate('/checkout');
   };
 
   return (
@@ -46,6 +54,10 @@ const CartDrawer: React.FC = () => {
 
           {/* Drawer */}
           <motion.div
+            ref={drawerRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Shopping cart"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
@@ -54,7 +66,10 @@ const CartDrawer: React.FC = () => {
           >
             <div className="flex justify-between items-center mb-12">
               <h2 className="brand-font text-xl text-white tracking-widest">Your Armor</h2>
-              <button onClick={() => setIsCartOpen(false)}>
+              <button
+                onClick={() => setIsCartOpen(false)}
+                aria-label="Close cart"
+              >
                 <X className="w-6 h-6 text-slate-400 hover:text-white transition-colors" />
               </button>
             </div>
@@ -63,7 +78,7 @@ const CartDrawer: React.FC = () => {
               {cart.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
                   <p className="text-slate-500 brand-font text-xs uppercase tracking-widest">The armory is empty</p>
-                  <button 
+                  <button
                     onClick={() => setIsCartOpen(false)}
                     className="text-sky-400 brand-font text-[10px] underline underline-offset-4 uppercase"
                   >
@@ -72,9 +87,9 @@ const CartDrawer: React.FC = () => {
                 </div>
               ) : (
                 cart.map((item) => (
-                  <motion.div 
+                  <motion.div
                     layout
-                    key={`${item.id}-${item.selectedSize}`} 
+                    key={`${item.id}-${item.selectedSize}`}
                     className="flex gap-4 group"
                   >
                     <div className="w-20 h-24 bg-zinc-900 overflow-hidden flex-shrink-0 border border-white/5">
@@ -84,7 +99,10 @@ const CartDrawer: React.FC = () => {
                       <div>
                         <div className="flex justify-between">
                           <h3 className="brand-font text-[10px] text-white tracking-widest">{item.name}</h3>
-                          <button onClick={() => removeFromCart(item.id, item.selectedSize)}>
+                          <button
+                            onClick={() => removeFromCart(item.id, item.selectedSize)}
+                            aria-label={`Remove ${item.name} size ${item.selectedSize}`}
+                          >
                             <X className="w-3 h-3 text-slate-600 hover:text-red-500 transition-colors" />
                           </button>
                         </div>
@@ -92,11 +110,17 @@ const CartDrawer: React.FC = () => {
                       </div>
                       <div className="flex justify-between items-center">
                         <div className="flex items-center gap-4 bg-zinc-900/50 p-1 px-3 border border-white/5">
-                          <button onClick={() => updateQuantity(item.id, item.selectedSize, -1)}>
+                          <button
+                            onClick={() => updateQuantity(item.id, item.selectedSize, -1)}
+                            aria-label="Decrease quantity"
+                          >
                             <Minus className="w-3 h-3 text-slate-400 hover:text-white" />
                           </button>
                           <span className="text-xs font-mono text-white">{item.quantity}</span>
-                          <button onClick={() => updateQuantity(item.id, item.selectedSize, 1)}>
+                          <button
+                            onClick={() => updateQuantity(item.id, item.selectedSize, 1)}
+                            aria-label="Increase quantity"
+                          >
                             <Plus className="w-3 h-3 text-slate-400 hover:text-white" />
                           </button>
                         </div>
@@ -109,28 +133,26 @@ const CartDrawer: React.FC = () => {
             </div>
 
             {cart.length > 0 && (
-              <div className="mt-8 pt-8 border-t border-white/5 space-y-8">
+              <div className="mt-8 pt-8 border-t border-white/5 space-y-6">
                 <div className="flex justify-between items-center">
                   <span className="brand-font text-xs text-slate-400 tracking-widest">Total Investment</span>
                   <span className="brand-font text-xl text-white tracking-tighter">${totalPrice}</span>
                 </div>
 
+                {/* Drag to checkout slider */}
                 <div className="relative">
-                   <div 
-                    ref={constraintsRef}
+                  <div
                     className="relative h-16 bg-zinc-900/50 rounded-full flex items-center p-1 border border-white/5 overflow-hidden"
-                   >
-                    {/* Background Text */}
+                  >
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <motion.span 
+                      <motion.span
                         style={{ opacity }}
                         className="brand-font text-[10px] tracking-[0.3em] text-slate-500 uppercase"
                       >
-                        {isProcessed ? 'Verifying...' : 'Slide to Secure Armor'}
+                        Slide to Checkout
                       </motion.span>
                     </div>
 
-                    {/* Draggable Handle */}
                     <motion.div
                       drag="x"
                       dragConstraints={{ left: 0, right: 300 }}
@@ -138,21 +160,34 @@ const CartDrawer: React.FC = () => {
                       style={{ x, backgroundColor: bgColor }}
                       onDragEnd={handleDragEnd}
                       className="h-14 w-14 rounded-full flex items-center justify-center text-white shadow-lg cursor-grab active:cursor-grabbing z-20"
+                      tabIndex={0}
+                      role="slider"
+                      aria-label="Slide to proceed to checkout"
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          handleCheckoutClick();
+                        }
+                      }}
                     >
-                      {isProcessed ? (
-                        <CheckCircle2 className="w-6 h-6" />
-                      ) : (
-                        <ChevronRight className="w-6 h-6" />
-                      )}
+                      <ChevronRight className="w-6 h-6" />
                     </motion.div>
 
-                    {/* Success Track */}
-                    <motion.div 
+                    <motion.div
                       className="absolute left-1 top-1 bottom-1 bg-sky-500/20 rounded-full"
                       style={{ width: x }}
                     />
                   </div>
                 </div>
+
+                {/* Keyboard-accessible checkout button (C10) */}
+                <button
+                  onClick={handleCheckoutClick}
+                  className="w-full py-4 bg-sky-500 hover:bg-sky-400 text-white brand-font text-[10px] tracking-[0.3em] flex items-center justify-center gap-3 transition-all active:scale-[0.98]"
+                >
+                  <ShoppingBag className="w-4 h-4" />
+                  PROCEED TO CHECKOUT
+                </button>
               </div>
             )}
           </motion.div>
