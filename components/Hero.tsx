@@ -11,8 +11,8 @@ const Hero: React.FC = () => {
     <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-black">
       <div className="absolute inset-0 z-0">
         <img 
-          src="https://images.unsplash.com/photo-1558239027-3860548170d1?auto=format&fit=crop&q=80&w=2070" 
-          alt="Silk Texture" 
+          src="https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&q=80&w=1920"
+          alt="Luxury silk fabric texture" 
           className="w-full h-full object-cover opacity-40 mix-blend-luminosity scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0F0F0F]/50 to-[#0F0F0F]"></div>
@@ -27,7 +27,7 @@ const Hero: React.FC = () => {
         </h1>
         
         <p className="brand-font text-sm md:text-xl tracking-[1em] text-sky-400 mb-12 uppercase">
-          FOR THOSE WITH GUTS
+          FOR THOSE WITH BALLS
         </p>
 
         <motion.button 

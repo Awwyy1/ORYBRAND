@@ -12,7 +12,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         <div className="text-center md:text-left">
           <h2 className="brand-font text-2xl mb-4 text-white">ORY</h2>
           <p className="text-xs text-slate-500 max-w-xs leading-relaxed uppercase tracking-widest">
-            For those with guts. Precision engineered silk for the modern man.
+            For those with balls. Precision engineered silk for the modern man.
           </p>
         </div>
 
@@ -22,7 +22,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <ul className="text-xs space-y-2 text-slate-500 uppercase tracking-widest">
               <li onClick={() => window.scrollTo(0, document.getElementById('shop')?.offsetTop || 0)} className="hover:text-white cursor-pointer transition-colors">Armory</li>
               <li onClick={() => onNavigate('technology')} className="hover:text-white cursor-pointer transition-colors">Technology</li>
-              <li className="hover:text-white cursor-pointer transition-colors opacity-50 cursor-not-allowed">Philosophy</li>
+              <li onClick={() => onNavigate('philosophy')} className="hover:text-white cursor-pointer transition-colors">Philosophy</li>
             </ul>
           </div>
           <div>

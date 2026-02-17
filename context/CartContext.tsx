@@ -1,5 +1,4 @@
-
-import React, { createContext, useContext, useState, useMemo, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
 import { CartItem, Product, ProductSize } from '../types';
 
 interface CartContextType {
@@ -9,17 +8,31 @@ interface CartContextType {
   addToCart: (product: Product, size: ProductSize) => void;
   removeFromCart: (id: string, size: ProductSize) => void;
   updateQuantity: (id: string, size: ProductSize, delta: number) => void;
+  clearCart: () => void;
   totalPrice: number;
   cartCount: number;
-  cartBump: number; // Incrementing counter to trigger header animations
+  cartBump: number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
+function loadCart(): CartItem[] {
+  try {
+    const saved = localStorage.getItem('ory-cart');
+    return saved ? JSON.parse(saved) : [];
+  } catch {
+    return [];
+  }
+}
+
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cart, setCart] = useState<CartItem[]>(loadCart);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartBump, setCartBump] = useState(0);
+
+  useEffect(() => {
+    localStorage.setItem('ory-cart', JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = useCallback((product: Product, size: ProductSize) => {
     setCart((prev) => {
@@ -27,15 +40,13 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (existing) {
         return prev.map((item) =>
           item.id === product.id && item.selectedSize === size
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: Math.min(item.quantity + 1, 10) }
             : item
         );
       }
       return [...prev, { ...product, selectedSize: size, quantity: 1 }];
     });
     setCartBump((prev) => prev + 1);
-    // Don't auto-open cart if we want to show the sophisticated button animation first
-    // setIsCartOpen(true); 
   }, []);
 
   const removeFromCart = useCallback((id: string, size: ProductSize) => {
@@ -47,11 +58,15 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       prev.map((item) => {
         if (item.id === id && item.selectedSize === size) {
           const nextQty = item.quantity + delta;
-          return { ...item, quantity: Math.max(1, nextQty) };
+          return { ...item, quantity: Math.max(1, Math.min(10, nextQty)) };
         }
         return item;
       })
     );
+  }, []);
+
+  const clearCart = useCallback(() => {
+    setCart([]);
   }, []);
 
   const totalPrice = useMemo(() => cart.reduce((acc, item) => acc + item.price * item.quantity, 0), [cart]);
@@ -64,10 +79,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     addToCart,
     removeFromCart,
     updateQuantity,
+    clearCart,
     totalPrice,
     cartCount,
     cartBump
-  }), [cart, isCartOpen, addToCart, removeFromCart, updateQuantity, totalPrice, cartCount, cartBump]);
+  }), [cart, isCartOpen, addToCart, removeFromCart, updateQuantity, clearCart, totalPrice, cartCount, cartBump]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };

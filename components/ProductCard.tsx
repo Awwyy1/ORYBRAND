@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, ShoppingCart } from 'lucide-react';
 import { Product, ProductSize } from '../types';
@@ -7,19 +7,20 @@ import { useCart } from '../context/CartContext';
 
 interface ProductCardProps {
   product: Product;
-  onOpenDetail?: (product: Product) => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetail }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const navigate = useNavigate();
   const { addToCart } = useCart();
   const [selectedSize, setSelectedSize] = useState<ProductSize>(product.sizes[1]);
   const [isAnimating, setIsAnimating] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
   const handleAddToCart = async (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent opening detail view when clicking add to cart
+    e.stopPropagation();
+    e.preventDefault();
     if (isAnimating) return;
-    
+
     setIsAnimating(true);
     addToCart(product, selectedSize);
 
@@ -31,20 +32,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetail }) => {
   };
 
   return (
-    <div 
+    <div
       className="group relative cursor-pointer"
-      onClick={() => onOpenDetail?.(product)}
+      onClick={() => navigate(`/product/${product.id}`)}
     >
       <div className="relative overflow-hidden aspect-[3/4] titanium-border rounded-sm bg-zinc-900">
-        <motion.img 
+        <motion.img
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.6, ease: "circOut" }}
-          src={product.image} 
-          alt={product.name} 
+          src={product.image}
+          alt={product.name}
           className="w-full h-full object-cover transition-transform duration-700 brightness-75 group-hover:brightness-100"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-        
+
         <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           {product.sizes.map((size) => (
             <button
@@ -54,8 +55,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetail }) => {
                 setSelectedSize(size);
               }}
               className={`w-7 h-7 text-[9px] brand-font flex items-center justify-center border transition-all ${
-                selectedSize === size 
-                  ? 'bg-sky-500 border-sky-500 text-white shadow-[0_0_10px_rgba(56,189,248,0.5)]' 
+                selectedSize === size
+                  ? 'bg-sky-500 border-sky-500 text-white shadow-[0_0_10px_rgba(56,189,248,0.5)]'
                   : 'bg-black/60 border-white/10 text-white/60 hover:border-white/40 hover:text-white'
               }`}
             >
@@ -69,14 +70,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetail }) => {
             onClick={handleAddToCart}
             disabled={isAnimating}
             className={`relative w-full py-4 brand-font text-[10px] tracking-[0.2em] flex items-center justify-center gap-2 overflow-hidden transition-all duration-500 ${
-              showSuccess 
-                ? 'bg-sky-500/10 border-sky-500 text-sky-400' 
+              showSuccess
+                ? 'bg-sky-500/10 border-sky-500 text-sky-400'
                 : 'bg-white text-black hover:bg-sky-400 titanium-border'
             }`}
           >
             <AnimatePresence mode="wait">
               {isAnimating ? (
-                <motion.div 
+                <motion.div
                   key="animating"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -92,14 +93,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetail }) => {
                       strokeWidth="1"
                       className="text-sky-400/40"
                       initial={{ pathLength: 0, x: -100 }}
-                      animate={{ 
-                        pathLength: [0, 1, 0], 
+                      animate={{
+                        pathLength: [0, 1, 0],
                         x: [0, 200],
                         transition: { duration: 1, repeat: Infinity, ease: "easeInOut" }
                       }}
                     />
                   </svg>
-                  <motion.div 
+                  <motion.div
                     className="absolute inset-0 bg-sky-400/20"
                     initial={{ x: "-100%" }}
                     animate={{ x: "100%" }}
@@ -107,7 +108,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetail }) => {
                   />
                 </motion.div>
               ) : showSuccess ? (
-                <motion.div 
+                <motion.div
                   key="success"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -117,7 +118,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetail }) => {
                   <span>ARMOR READY</span>
                 </motion.div>
               ) : (
-                <motion.div 
+                <motion.div
                   key="idle"
                   className="flex items-center gap-2 z-10"
                 >
