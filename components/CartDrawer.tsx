@@ -93,7 +93,7 @@ const CartDrawer: React.FC = () => {
                     className="flex gap-4 group"
                   >
                     <div className="w-20 h-24 bg-zinc-900 overflow-hidden flex-shrink-0 border border-white/5">
-                      <img src={item.image} className="w-full h-full object-cover" alt={item.name} />
+                      <img src={item.image} className="w-full h-full object-cover" alt={item.name} loading="lazy" />
                     </div>
                     <div className="flex-1 flex flex-col justify-between">
                       <div>
