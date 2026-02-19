@@ -6,7 +6,7 @@ export const PRODUCTS: Product[] = [
     name: 'Ory Stealth',
     price: 85,
     description: 'Black Obsidian Silk',
-    longDescription: 'Engineered for complete thermal regulation and absolute discretion. Our Stealth series utilizes a bespoke Obsidian weave that traps zero moisture while providing a weightless, high-tensile fit. The ultimate base layer for those who don't settle for less.',
+    longDescription: "Engineered for complete thermal regulation and absolute discretion. Our Stealth series utilizes a bespoke Obsidian weave that traps zero moisture while providing a weightless, high-tensile fit. The ultimate base layer for those who don't settle for less.",
     image: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&q=80&w=1200',
     gallery: [
       'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&q=80&w=1200',
