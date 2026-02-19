@@ -1,22 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import ProductGrid from './components/ProductGrid';
 import Philosophy from './components/Philosophy';
+import Reviews from './components/Reviews';
+import Newsletter from './components/Newsletter';
 import CartDrawer from './components/CartDrawer';
 import Footer from './components/Footer';
 import SideMenu from './components/SideMenu';
-import InfoPage from './components/InfoPage';
-import ProductDetailPage from './components/ProductDetailPage';
-import CheckoutPage from './components/CheckoutPage';
+
+// Lazy-loaded routes (H7: Code splitting)
+const ProductDetailPage = lazy(() => import('./components/ProductDetailPage'));
+const CheckoutPage = lazy(() => import('./components/CheckoutPage'));
+const InfoPage = lazy(() => import('./components/InfoPage'));
+const NotFoundPage = lazy(() => import('./components/NotFoundPage'));
+
+const PageLoader: React.FC = () => (
+  <div className="min-h-screen bg-[#0F0F0F] flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-sky-400 border-t-transparent rounded-full animate-spin" />
+  </div>
+);
 
 const HomePage: React.FC = () => (
   <>
     <Hero />
     <Philosophy />
     <ProductGrid />
+    <Reviews />
   </>
 );
 
@@ -40,14 +52,19 @@ const App: React.FC = () => {
         <Header onMenuOpen={() => setIsMenuOpen(true)} onHome={() => navigateTo(null)} />
 
         <main>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/product/:productId" element={<ProductDetailPage />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
-            <Route path="/:pageId" element={<InfoPage />} />
-          </Routes>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/product/:productId" element={<ProductDetailPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/404" element={<NotFoundPage />} />
+              <Route path="/:pageId" element={<InfoPage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </Suspense>
         </main>
 
+        <Newsletter />
         <Footer onNavigate={navigateTo} />
 
         <SideMenu
