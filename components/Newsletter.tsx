@@ -11,6 +11,16 @@ const Newsletter: React.FC = () => {
     e.preventDefault();
     if (!email || status === 'loading') return;
 
+    // H18: Client-side email validation + sanitization
+    const cleanEmail = email.replace(/[<>]/g, '').trim();
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRe.test(cleanEmail) || cleanEmail.length > 254) {
+      setErrorMsg('Please enter a valid email address');
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 3000);
+      return;
+    }
+
     setStatus('loading');
 
     try {

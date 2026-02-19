@@ -29,6 +29,7 @@ const Hero: React.FC = () => {
             alt="Luxury silk fabric texture"
             loading="eager"
             decoding="async"
+            fetchPriority="high"
             className="w-full h-full object-cover opacity-40 mix-blend-luminosity scale-110"
           />
         </picture>
