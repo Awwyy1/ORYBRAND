@@ -428,7 +428,7 @@ const CheckoutPage: React.FC = () => {
                 {cart.map((item) => (
                   <div key={`${item.id}-${item.selectedSize}`} className="flex gap-4">
                     <div className="w-16 h-20 bg-zinc-900 overflow-hidden border border-white/5 flex-shrink-0">
-                      <img src={item.image} className="w-full h-full object-cover" alt={item.name} loading="lazy" />
+                      <img src={item.image} className="w-full h-full object-cover" alt={`${item.name}, size ${item.selectedSize} — checkout item`} loading="lazy" />
                     </div>
                     <div className="flex-1">
                       <p className="brand-font text-[10px] text-white tracking-widest">{item.name}</p>

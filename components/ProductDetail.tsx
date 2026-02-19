@@ -80,8 +80,8 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
                 animate={{ opacity: 1, scale: 1 }}
                 src={activeImage}
                 className="w-full h-full object-cover"
-                alt={product.name}
-                loading="lazy" 
+                alt={`${product.name} — ${product.description}, full product view`}
+                loading="lazy"
               />
             </div>
             <div className="grid grid-cols-4 gap-4">
@@ -93,7 +93,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
                     activeImage === img ? 'border-sky-500 ring-2 ring-sky-500/20' : 'border-white/5 opacity-50 hover:opacity-100'
                   }`}
                 >
-                  <OptimizedImage src={img} className="w-full h-full object-cover" alt={`${product.name} view ${i}`} widths={[200, 400]} sizes="25vw" />
+                  <OptimizedImage src={img} className="w-full h-full object-cover" alt={`${product.name} — detail view ${i + 1} of ${product.gallery.length}`} widths={[200, 400]} sizes="25vw" />
                 </button>
               ))}
             </div>

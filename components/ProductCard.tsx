@@ -41,7 +41,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.6, ease: "circOut" }}
           src={product.image}
-          alt={product.name}
+          alt={`${product.name} — ${product.description}, premium silk underwear by ORY`}
           loading="lazy"
           className="w-full h-full object-cover transition-transform duration-700 brightness-75 group-hover:brightness-100"
         />

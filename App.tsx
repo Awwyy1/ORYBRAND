@@ -51,9 +51,17 @@ const App: React.FC = () => {
   return (
     <CartProvider>
       <div className="relative min-h-screen bg-[#0F0F0F]">
+        {/* H22: Skip-to-content link for keyboard/screen reader users */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-sky-500 focus:text-white focus:px-6 focus:py-3 focus:brand-font focus:text-xs focus:tracking-widest focus:shadow-lg focus:outline-none"
+        >
+          Skip to content
+        </a>
+
         <Header onMenuOpen={() => setIsMenuOpen(true)} onHome={() => navigateTo(null)} />
 
-        <main>
+        <main id="main-content">
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<HomePage />} />
