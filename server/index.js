@@ -18,6 +18,7 @@ const db = {
   orders: [],
   customers: [],
   emails: [],
+  newsletter: [],
 };
 
 // ─── INVENTORY ────────────────────────────────────────────────────
@@ -257,6 +258,44 @@ app.get('/api/emails', (_req, res) => {
 app.get('/api/emails/:orderId', (req, res) => {
   const emails = db.emails.filter(e => e.orderId === req.params.orderId);
   res.json(emails);
+});
+
+// ─── NEWSLETTER ───────────────────────────────────────────────────
+
+app.post('/api/newsletter', (req, res) => {
+  const { email } = req.body;
+
+  if (!email || !email.includes('@')) {
+    return res.status(400).json({ error: 'Valid email required' });
+  }
+
+  const exists = db.newsletter.find(n => n.email === email);
+  if (exists) {
+    return res.status(409).json({ error: 'Already subscribed' });
+  }
+
+  const subscriber = {
+    id: randomUUID(),
+    email,
+    subscribedAt: new Date().toISOString(),
+  };
+  db.newsletter.push(subscriber);
+
+  console.log(`[NEWSLETTER] New subscriber: ${email}`);
+
+  // Send welcome email
+  sendMockEmail({
+    to: email,
+    type: 'newsletter_welcome',
+    subject: 'Welcome to ORY — You\'re In',
+    orderId: null,
+  });
+
+  res.status(201).json({ message: 'Subscribed successfully' });
+});
+
+app.get('/api/newsletter', (_req, res) => {
+  res.json(db.newsletter);
 });
 
 // ─── ADMIN / STATS ───────────────────────────────────────────────

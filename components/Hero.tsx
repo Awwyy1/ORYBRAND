@@ -18,12 +18,20 @@ const Hero: React.FC = () => {
   return (
     <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-black">
       <div className="absolute inset-0 z-0">
-        <img
-          src="https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&q=80&w=1920"
-          alt="Luxury silk fabric texture"
-          loading="eager"
-          className="w-full h-full object-cover opacity-40 mix-blend-luminosity scale-110"
-        />
+        <picture>
+          <source
+            srcSet="https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&q=75&w=800&fm=webp 800w, https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&q=75&w=1200&fm=webp 1200w, https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&q=75&w=1920&fm=webp 1920w"
+            sizes="100vw"
+            type="image/webp"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&q=80&w=1920"
+            alt="Luxury silk fabric texture"
+            loading="eager"
+            decoding="async"
+            className="w-full h-full object-cover opacity-40 mix-blend-luminosity scale-110"
+          />
+        </picture>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0F0F0F]/50 to-[#0F0F0F]"></div>
       </div>
 

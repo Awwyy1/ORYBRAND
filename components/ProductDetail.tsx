@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronRight, ChevronDown, ShoppingBag, Truck, CreditCard, Box } from 'lucide-react';
 import { Product, ProductSize } from '../types';
 import { useCart } from '../context/CartContext';
+import OptimizedImage from './OptimizedImage';
 
 interface ProductDetailProps {
   product: Product;
@@ -93,7 +94,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
                     activeImage === img ? 'border-sky-500 ring-2 ring-sky-500/20' : 'border-white/5 opacity-50 hover:opacity-100'
                   }`}
                 >
-                  <img src={img} className="w-full h-full object-cover" alt={`${product.name} view ${i}`} loading="lazy" />
+                  <OptimizedImage src={img} className="w-full h-full object-cover" alt={`${product.name} view ${i}`} widths={[200, 400]} sizes="25vw" />
                 </button>
               ))}
             </div>

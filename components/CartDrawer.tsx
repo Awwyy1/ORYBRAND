@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
 import { X, Plus, Minus, ChevronRight, ShoppingBag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import OptimizedImage from './OptimizedImage';
 
 const CartDrawer: React.FC = () => {
   const navigate = useNavigate();
@@ -93,7 +94,7 @@ const CartDrawer: React.FC = () => {
                     className="flex gap-4 group"
                   >
                     <div className="w-20 h-24 bg-zinc-900 overflow-hidden flex-shrink-0 border border-white/5">
-                      <img src={item.image} className="w-full h-full object-cover" alt={item.name} loading="lazy" />
+                      <OptimizedImage src={item.image} className="w-full h-full object-cover" alt={item.name} widths={[100, 200]} sizes="80px" />
                     </div>
                     <div className="flex-1 flex flex-col justify-between">
                       <div>
