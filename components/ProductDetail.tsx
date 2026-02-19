@@ -101,7 +101,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
           {/* Info Section */}
           <div className="lg:col-span-5 flex flex-col">
             <div className="mb-8">
-              <span className="brand-font text-[10px] text-sky-400 tracking-[0.3em] mb-2 block">Premium Armor</span>
+              <span className="brand-font text-[10px] text-sky-400 tracking-[0.3em] mb-2 block">ORY Collection</span>
               <h1 className="brand-font text-4xl md:text-5xl text-white mb-4">{product.name}</h1>
               <p className="brand-font text-2xl text-sky-400 tracking-tighter">${product.price}</p>
             </div>
@@ -114,7 +114,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
 
             <div className="space-y-8 mb-12">
               <div>
-                <span className="brand-font text-[10px] text-slate-500 tracking-widest mb-4 block">Select Magnitude</span>
+                <span className="brand-font text-[10px] text-slate-500 tracking-widest mb-4 block">Select Your Size</span>
                 <div className="flex gap-4">
                   {product.sizes.map((size) => (
                     <button
@@ -145,12 +145,12 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
                       animate={{ x: "100%" }}
                       transition={{ duration: 0.5 }}
                     />
-                    <span>ADDED TO ARMORY</span>
+                    <span>ADDED TO BAG</span>
                   </>
                 ) : (
                   <>
                     <ShoppingBag className="w-4 h-4" />
-                    <span>SECURE TRANSACTION</span>
+                    <span>ADD TO BAG</span>
                   </>
                 )}
               </button>
@@ -160,19 +160,19 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
             <div className="space-y-4 pt-12 border-t border-white/5">
               <div className="flex items-center gap-4 mb-8">
                 <Box className="w-5 h-5 text-sky-400" />
-                <span className="brand-font text-[10px] tracking-widest text-white">The Details Matrix</span>
+                <span className="brand-font text-[10px] tracking-widest text-white">The Details</span>
               </div>
               
               <div className="grid grid-cols-2 gap-4 mb-8">
                 <div className="p-4 bg-zinc-900/50 border border-white/5 rounded-sm">
                   <Truck className="w-4 h-4 text-sky-400 mb-2" />
-                  <p className="brand-font text-[8px] text-slate-500 mb-1">Logistics</p>
-                  <p className="text-[10px] text-white">Stealth 3-5 Day Delivery</p>
+                  <p className="brand-font text-[8px] text-slate-500 mb-1">Shipping</p>
+                  <p className="text-[10px] text-white">Free Delivery in 3-5 Days</p>
                 </div>
                 <div className="p-4 bg-zinc-900/50 border border-white/5 rounded-sm">
                   <CreditCard className="w-4 h-4 text-sky-400 mb-2" />
-                  <p className="brand-font text-[8px] text-slate-500 mb-1">Transaction</p>
-                  <p className="text-[10px] text-white">Secure Encrypted Protocol</p>
+                  <p className="brand-font text-[8px] text-slate-500 mb-1">Payment</p>
+                  <p className="text-[10px] text-white">Secure Payment</p>
                 </div>
               </div>
 

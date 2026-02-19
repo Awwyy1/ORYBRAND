@@ -20,7 +20,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div>
             <h4 className="brand-font text-[10px] text-sky-400 mb-4">Explore</h4>
             <ul className="text-xs space-y-2 text-slate-500 uppercase tracking-widest">
-              <li onClick={() => window.scrollTo(0, document.getElementById('shop')?.offsetTop || 0)} className="hover:text-white cursor-pointer transition-colors">Armory</li>
+              <li onClick={() => window.scrollTo(0, document.getElementById('shop')?.offsetTop || 0)} className="hover:text-white cursor-pointer transition-colors">Collection</li>
               <li onClick={() => onNavigate('technology')} className="hover:text-white cursor-pointer transition-colors">Technology</li>
               <li onClick={() => onNavigate('philosophy')} className="hover:text-white cursor-pointer transition-colors">Philosophy</li>
             </ul>
@@ -28,7 +28,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div>
             <h4 className="brand-font text-[10px] text-sky-400 mb-4">Support</h4>
             <ul className="text-xs space-y-2 text-slate-500 uppercase tracking-widest">
-              <li onClick={() => onNavigate('shipping')} className="hover:text-white cursor-pointer transition-colors">Logistics</li>
+              <li onClick={() => onNavigate('shipping')} className="hover:text-white cursor-pointer transition-colors">Shipping</li>
               <li onClick={() => onNavigate('returns')} className="hover:text-white cursor-pointer transition-colors">Returns</li>
               <li onClick={() => onNavigate('privacy')} className="hover:text-white cursor-pointer transition-colors">Privacy</li>
             </ul>
@@ -38,7 +38,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
       
       <div className="mt-16 text-center border-t border-white/5 pt-8">
         <p className="text-[10px] text-slate-600 uppercase tracking-[0.3em]">
-          &copy; {new Date().getFullYear()} ORY INDUSTRIES. ESTABLISHED IN THE SHADOWS.
+          &copy; {new Date().getFullYear()} ORY. LUXURY WHERE IT MATTERS MOST.
         </p>
       </div>
     </footer>

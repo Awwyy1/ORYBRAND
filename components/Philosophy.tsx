@@ -23,7 +23,7 @@ const Philosophy: React.FC = () => {
         <motion.div {...fadeInUp} transition={{ delay: 0.2 }}>
           <p className="text-lg md:text-2xl font-light text-slate-400 leading-relaxed border-l-2 border-sky-400 pl-8">
             Friction-free engineering for your most valuable assets. 
-            Designed in the shadows, built for the spotlight. 
+            Designed with obsession. Built for those who give a damn.
             The feeling of liquid titanium against your skin.
           </p>
         </motion.div>
@@ -33,7 +33,7 @@ const Philosophy: React.FC = () => {
             <h3 className="brand-font text-sky-400 mb-2">Technical Specification</h3>
             <p className="text-slate-500 uppercase text-xs tracking-widest leading-loose">
               100% Grade 6A Mulberry Silk<br/>
-              Reinforced Stealth Stitching<br/>
+              Invisible Flat-Lock Stitching<br/>
               Zero-Pressure Waistband
             </p>
           </div>

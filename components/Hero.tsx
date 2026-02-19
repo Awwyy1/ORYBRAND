@@ -36,7 +36,7 @@ const Hero: React.FC = () => {
           onClick={() => document.getElementById('shop')?.scrollIntoView()}
           className="glass titanium-border px-10 py-4 brand-font text-xs tracking-widest text-white hover:bg-white hover:text-black transition-all duration-300"
         >
-          Choose Your Armor
+          Shop the Collection
         </motion.button>
       </motion.div>
 

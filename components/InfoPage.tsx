@@ -16,7 +16,7 @@ const InfoPage: React.FC = () => {
           sections: [
             { h: "THE SILK COVENANT", p: "We believe that luxury shouldn't be fragile. Our philosophy centers on the intersection of biological comfort and mechanical precision. To wear ORY is to enter a pact with your own skin—a promise of zero friction and absolute confidence." },
             { h: "ANATOMICAL ENGINEERING", p: "We don't design underwear; we engineer habitats. Every curve and stitch is dictated by the physics of the male body in motion. We use 100% Grade 6A Mulberry silk because it is the only material that respects the complexity of human biology." },
-            { h: "STEALTH WEALTH", p: "True power is silent. Our garments carry no external logos. The value of ORY is known only to the wearer. It is a private standard of excellence, a hidden layer of armor for the modern pioneer who demands the best where it matters most." }
+            { h: "QUIET LUXURY", p: "True confidence is silent. Our garments carry no external logos. The value of ORY is known only to the wearer. It is a private standard of excellence for the man who demands the best where it matters most." }
           ]
         };
       case 'technology':
@@ -31,12 +31,12 @@ const InfoPage: React.FC = () => {
         };
       case 'shipping':
         return {
-          title: "Stealth Logistics",
+          title: "Shipping & Delivery",
           icon: <Truck className="w-12 h-12 text-sky-400" />,
           sections: [
             { h: "DISCREET PACKAGING", p: "No logos. No branding. Your privacy is our priority. Every ORY shipment arrives in a matte-black, vacuum-sealed container." },
-            { h: "GLOBAL NETWORK", p: "Direct-to-consumer courier services across 180 countries. Average stealth delivery time: 3-5 business days." },
-            { h: "TRACKING ENCRYPTION", p: "Real-time updates via encrypted channels. Only you know where your armor is." }
+            { h: "GLOBAL NETWORK", p: "Direct-to-consumer courier services across 180 countries. Average delivery time: 3-5 business days." },
+            { h: "ORDER TRACKING", p: "Real-time updates straight to your inbox. Track your order every step of the way." }
           ]
         };
       case 'returns':
@@ -45,17 +45,17 @@ const InfoPage: React.FC = () => {
           icon: <Shield className="w-12 h-12 text-sky-400" />,
           sections: [
             { h: "30-DAY TRIAL", p: "Confidence must be earned. If ORY doesn't change your standard of comfort within 30 days, we'll facilitate a return." },
-            { h: "HYGIENIC PROTOCOL", p: "To maintain our elite standards, only unworn items in original sealed packaging are eligible for resale. Tried items are recycled for industrial fiber." },
+            { h: "HYGIENE POLICY", p: "To maintain our standards, only unworn items in original sealed packaging are eligible for return. Tried items are recycled for industrial fiber." },
             { h: "QUALITY AUDIT", p: "Every boxer undergoes a 12-point inspection before it leaves our facility." }
           ]
         };
       case 'privacy':
         return {
-          title: "Privacy Matrix",
+          title: "Privacy Policy",
           icon: <Eye className="w-12 h-12 text-sky-400" />,
           sections: [
-            { h: "DATA ZERO", p: "We do not sell your preferences. Your measurements and orders are stored behind military-grade encryption." },
-            { h: "TRANSACTION STEALTH", p: "Anonymous payment options supported. We only keep the records necessary for legal compliance." },
+            { h: "YOUR DATA", p: "We do not sell your preferences. Your measurements and orders are stored behind bank-level encryption." },
+            { h: "PAYMENT PRIVACY", p: "Anonymous payment options supported. We only keep the records necessary for legal compliance." },
             { h: "NO COOKIE TRACKING", p: "Our site runs clean. We value your digital space as much as your physical comfort." }
           ]
         };
@@ -105,7 +105,7 @@ const InfoPage: React.FC = () => {
             onClick={() => navigate('/')}
             className="brand-font text-xs tracking-widest text-white hover:text-sky-400 transition-colors"
           >
-            ← Return to Main Deck
+            ← Back to Home
           </button>
         </div>
       </div>

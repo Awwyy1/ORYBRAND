@@ -84,7 +84,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                   exit={{ opacity: 0 }}
                   className="flex items-center gap-2"
                 >
-                  <span className="relative z-10">SECURING...</span>
+                  <span className="relative z-10">ADDING...</span>
                   <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none">
                     <motion.path
                       d="M -20 20 Q 50 -10 120 20 T 260 20"
@@ -115,7 +115,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                   className="flex items-center gap-2"
                 >
                   <Check className="w-4 h-4" />
-                  <span>ARMOR READY</span>
+                  <span>ADDED</span>
                 </motion.div>
               ) : (
                 <motion.div
@@ -123,7 +123,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                   className="flex items-center gap-2 z-10"
                 >
                   <ShoppingCart className="w-4 h-4" />
-                  <span>ADD TO ARMOR</span>
+                  <span>ADD TO BAG</span>
                 </motion.div>
               )}
             </AnimatePresence>
