@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { X, Shield, Truck, Zap, Eye, Quote } from 'lucide-react';
+import Breadcrumbs from './Breadcrumbs';
 
 const InfoPage: React.FC = () => {
   const { pageId } = useParams<{ pageId: string }>();
@@ -73,6 +74,8 @@ const InfoPage: React.FC = () => {
       className="min-h-screen pt-40 pb-24 px-6 md:px-24 bg-[#0F0F0F]"
     >
       <div className="max-w-4xl mx-auto">
+        <Breadcrumbs items={[{ label: content.title }]} />
+
         <div className="flex items-center justify-between mb-16">
           <div className="flex items-center gap-6">
             {content.icon}

@@ -5,6 +5,7 @@ import { Lock, CreditCard, Truck, CheckCircle2, ArrowLeft, AlertCircle, Mail, Pa
 import { useCart } from '../context/CartContext';
 import { createPaymentIntent, createOrder } from '../lib/api';
 import type { Order } from '../lib/api';
+import Breadcrumbs from './Breadcrumbs';
 
 const STRIPE_TEST_HINT = [
   { card: '4242 4242 4242 4242', result: 'Success (Visa)' },
@@ -231,13 +232,7 @@ const CheckoutPage: React.FC = () => {
       className="min-h-screen bg-[#0F0F0F] pt-28 pb-32 px-6 md:px-12 lg:px-24"
     >
       <div className="max-w-5xl mx-auto">
-        <button
-          onClick={() => navigate('/')}
-          className="mb-8 flex items-center gap-2 text-slate-500 hover:text-white transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span className="brand-font text-[10px] tracking-widest uppercase">Back to Shop</span>
-        </button>
+        <Breadcrumbs items={[{ label: 'Checkout' }]} />
 
         <h1 className="brand-font text-3xl md:text-4xl text-white mb-12">Checkout</h1>
 
