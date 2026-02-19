@@ -30,8 +30,9 @@ const Header: React.FC<HeaderProps> = ({ onMenuOpen, onHome }) => {
         animate={{ opacity: 1, x: 0 }}
         className="flex items-center"
       >
-        <button 
+        <button
           onClick={onMenuOpen}
+          aria-label="Open navigation menu"
           className="group flex items-center gap-3 focus:outline-none"
         >
           <Menu className="w-6 h-6 text-white group-hover:text-sky-400 transition-colors" />
@@ -52,6 +53,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuOpen, onHome }) => {
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         onClick={() => setIsCartOpen(true)}
+        aria-label={`Shopping bag${cartCount > 0 ? `, ${cartCount} items` : ''}`}
         className="relative group focus:outline-none"
       >
         <motion.div animate={controls}>

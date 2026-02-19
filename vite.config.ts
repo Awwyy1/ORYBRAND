@@ -21,6 +21,19 @@ export default defineConfig(({ mode }) => {
         alias: {
           '@': path.resolve(__dirname, '.'),
         }
-      }
+      },
+      // H20: Build optimizations for Lighthouse
+      build: {
+        target: 'es2020',
+        cssMinify: true,
+        rollupOptions: {
+          output: {
+            manualChunks: {
+              'vendor-router': ['react-router-dom'],
+              'vendor-motion': ['framer-motion'],
+            },
+          },
+        },
+      },
     };
 });

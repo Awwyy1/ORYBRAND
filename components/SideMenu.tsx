@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, AnimatePresence, PanInfo } from 'framer-motion';
 import { X, ArrowRight } from 'lucide-react';
 
 interface SideMenuProps {
@@ -9,7 +9,12 @@ interface SideMenuProps {
   onNavigate: (page: string | null) => void;
 }
 
+const SWIPE_CLOSE_THRESHOLD = 80;
+const SWIPE_VELOCITY_THRESHOLD = 300;
+
 const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, onNavigate }) => {
+  const menuRef = useRef<HTMLDivElement>(null);
+
   const links = [
     { label: 'Collection', id: null, scroll: 'shop' },
     { label: 'Philosophy', id: 'philosophy' },
@@ -18,11 +23,18 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, onNavigate }) => {
     { label: 'Support', id: 'returns' },
   ];
 
+  const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    const swipedLeft = info.offset.x < -SWIPE_CLOSE_THRESHOLD || info.velocity.x < -SWIPE_VELOCITY_THRESHOLD;
+    if (swipedLeft) {
+      onClose();
+    }
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
         <>
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -30,10 +42,17 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, onNavigate }) => {
             className="fixed inset-0 bg-black/90 backdrop-blur-xl z-[60]"
           />
           <motion.div
+            ref={menuRef}
             initial={{ x: '-100%' }}
             animate={{ x: 0 }}
             exit={{ x: '-100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 200 }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={{ left: 0.4, right: 0 }}
+            dragDirectionLock
+            onDragEnd={handleDragEnd}
+            style={{ touchAction: 'pan-y' }}
             className="fixed top-0 left-0 h-full w-full max-w-sm bg-zinc-950 titanium-border border-r z-[70] p-12 flex flex-col"
           >
             <div className="flex justify-between items-center mb-24">
@@ -68,6 +87,11 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, onNavigate }) => {
                 </motion.button>
               ))}
             </nav>
+
+            {/* Swipe hint for mobile */}
+            <div className="md:hidden text-center mb-6">
+              <span className="text-[9px] text-slate-600 uppercase tracking-wider">Swipe left to close</span>
+            </div>
 
             <div className="mt-auto">
               <p className="brand-font text-[10px] text-slate-600 uppercase tracking-widest leading-loose">

@@ -24,12 +24,36 @@ function formatExpiry(value: string): string {
   return digits;
 }
 
+// H18: Client-side validation helpers
+function sanitizeInput(str: string): string {
+  return str.replace(/[<>]/g, '').replace(/javascript:/gi, '').trim();
+}
+
+function validateForm(form: Record<string, string>): string | null {
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRe.test(form.email)) return 'Please enter a valid email address.';
+  if (form.firstName.length < 1 || form.firstName.length > 50) return 'First name is required (max 50 chars).';
+  if (form.lastName.length < 1 || form.lastName.length > 50) return 'Last name is required (max 50 chars).';
+  if (form.address.length < 3) return 'Please enter a valid address.';
+  if (form.city.length < 2) return 'Please enter a valid city.';
+  if (!/^[A-Za-z0-9\s\-]{2,15}$/.test(form.zip)) return 'Please enter a valid ZIP/postal code.';
+  if (form.country.length < 2) return 'Please enter a country.';
+  const cardDigits = form.cardNumber.replace(/\s/g, '');
+  if (!/^\d{13,19}$/.test(cardDigits)) return 'Please enter a valid card number (13-19 digits).';
+  if (!/^\d{2}\/\d{2}$/.test(form.expiry)) return 'Expiry must be MM/YY format.';
+  const [mm] = form.expiry.split('/').map(Number);
+  if (mm < 1 || mm > 12) return 'Invalid expiry month.';
+  if (!/^\d{3,4}$/.test(form.cvc)) return 'CVC must be 3 or 4 digits.';
+  return null;
+}
+
 const CheckoutPage: React.FC = () => {
   const navigate = useNavigate();
   const { cart, totalPrice, clearCart } = useCart();
   const [step, setStep] = useState<'form' | 'processing' | 'success' | 'error'>('form');
   const [errorMsg, setErrorMsg] = useState('');
   const [order, setOrder] = useState<Order | null>(null);
+  const [formErrors, setFormErrors] = useState('');
   const [form, setForm] = useState({
     email: '',
     firstName: '',
@@ -60,6 +84,15 @@ const CheckoutPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFormErrors('');
+
+    // H18: Client-side validation before sending
+    const validationError = validateForm(form);
+    if (validationError) {
+      setFormErrors(validationError);
+      return;
+    }
+
     setStep('processing');
     setErrorMsg('');
 
@@ -105,7 +138,10 @@ const CheckoutPage: React.FC = () => {
   };
 
   const updateField = (field: string, value: string) => {
-    setForm(prev => ({ ...prev, [field]: value }));
+    // H18: Sanitize text inputs (skip card/expiry/cvc which have their own formatters)
+    const sanitized = ['cardNumber', 'expiry', 'cvc'].includes(field) ? value : sanitizeInput(value);
+    setForm(prev => ({ ...prev, [field]: sanitized }));
+    if (formErrors) setFormErrors('');
   };
 
   // ─── SUCCESS ────────────────────────────────────────────────────
@@ -365,6 +401,15 @@ const CheckoutPage: React.FC = () => {
                 />
               </div>
             </div>
+
+            {formErrors && (
+              <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-sm">
+                <p className="text-red-400 text-sm flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                  {formErrors}
+                </p>
+              </div>
+            )}
 
             <button
               type="submit"
