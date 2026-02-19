@@ -7,6 +7,7 @@ import ProductGrid from './components/ProductGrid';
 import Philosophy from './components/Philosophy';
 import Reviews from './components/Reviews';
 import Newsletter from './components/Newsletter';
+import WhySilk from './components/WhySilk';
 import CartDrawer from './components/CartDrawer';
 import Footer from './components/Footer';
 import SideMenu from './components/SideMenu';
@@ -27,6 +28,7 @@ const HomePage: React.FC = () => (
   <>
     <Hero />
     <Philosophy />
+    <WhySilk />
     <ProductGrid />
     <Reviews />
   </>

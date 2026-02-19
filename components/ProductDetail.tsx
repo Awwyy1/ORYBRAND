@@ -5,6 +5,8 @@ import { X, ChevronRight, ChevronDown, ShoppingBag, Truck, CreditCard, Box } fro
 import { Product, ProductSize } from '../types';
 import { useCart } from '../context/CartContext';
 import OptimizedImage from './OptimizedImage';
+import SizeChart from './SizeChart';
+import Breadcrumbs from './Breadcrumbs';
 
 interface ProductDetailProps {
   product: Product;
@@ -63,13 +65,10 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
       className="min-h-screen bg-[#0F0F0F] pt-24 pb-32 px-6 md:px-12 lg:px-24"
     >
       <div className="max-w-7xl mx-auto">
-        <button 
-          onClick={onClose}
-          className="mb-12 flex items-center gap-2 group text-slate-500 hover:text-white transition-colors"
-        >
-          <X className="w-5 h-5" />
-          <span className="brand-font text-[10px] tracking-widest uppercase">Close Detail</span>
-        </button>
+        <Breadcrumbs items={[
+          { label: 'Collection', href: '/' },
+          { label: product.name },
+        ]} />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           {/* Gallery Section */}
@@ -116,15 +115,21 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
 
             <div className="space-y-8 mb-12">
               <div>
-                <span className="brand-font text-[10px] text-slate-500 tracking-widest mb-4 block">Select Your Size</span>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="brand-font text-[10px] text-slate-500 tracking-widest">Select Your Size</span>
+                  <SizeChart
+                    selectedSize={selectedSize}
+                    onSizeSelect={(s) => setSelectedSize(s as any)}
+                  />
+                </div>
                 <div className="flex gap-4">
                   {product.sizes.map((size) => (
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
                       className={`w-14 h-14 brand-font text-xs flex items-center justify-center border transition-all ${
-                        selectedSize === size 
-                          ? 'bg-white text-black border-white shadow-[0_0_20px_rgba(255,255,255,0.2)]' 
+                        selectedSize === size
+                          ? 'bg-white text-black border-white shadow-[0_0_20px_rgba(255,255,255,0.2)]'
                           : 'bg-transparent border-white/10 text-slate-500 hover:border-white/40'
                       }`}
                     >
