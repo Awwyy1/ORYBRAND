@@ -78,9 +78,10 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
                 key={activeImage}
                 initial={{ opacity: 0, scale: 1.1 }}
                 animate={{ opacity: 1, scale: 1 }}
-                src={activeImage} 
+                src={activeImage}
                 className="w-full h-full object-cover"
-                alt={product.name} 
+                alt={product.name}
+                loading="lazy" 
               />
             </div>
             <div className="grid grid-cols-4 gap-4">
@@ -92,7 +93,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
                     activeImage === img ? 'border-sky-500 ring-2 ring-sky-500/20' : 'border-white/5 opacity-50 hover:opacity-100'
                   }`}
                 >
-                  <img src={img} className="w-full h-full object-cover" alt={`${product.name} view ${i}`} />
+                  <img src={img} className="w-full h-full object-cover" alt={`${product.name} view ${i}`} loading="lazy" />
                 </button>
               ))}
             </div>

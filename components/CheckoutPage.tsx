@@ -1,13 +1,34 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Lock, CreditCard, Truck, CheckCircle2, ArrowLeft } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Lock, CreditCard, Truck, CheckCircle2, ArrowLeft, AlertCircle, Mail, Package } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { createPaymentIntent, createOrder } from '../lib/api';
+import type { Order } from '../lib/api';
+
+const STRIPE_TEST_HINT = [
+  { card: '4242 4242 4242 4242', result: 'Success (Visa)' },
+  { card: '5555 5555 5555 4444', result: 'Success (MC)' },
+  { card: '4000 0000 0000 9995', result: 'Decline' },
+];
+
+function formatCard(value: string): string {
+  const digits = value.replace(/\D/g, '').slice(0, 16);
+  return digits.replace(/(.{4})/g, '$1 ').trim();
+}
+
+function formatExpiry(value: string): string {
+  const digits = value.replace(/\D/g, '').slice(0, 4);
+  if (digits.length > 2) return digits.slice(0, 2) + '/' + digits.slice(2);
+  return digits;
+}
 
 const CheckoutPage: React.FC = () => {
   const navigate = useNavigate();
   const { cart, totalPrice, clearCart } = useCart();
-  const [step, setStep] = useState<'form' | 'processing' | 'success'>('form');
+  const [step, setStep] = useState<'form' | 'processing' | 'success' | 'error'>('form');
+  const [errorMsg, setErrorMsg] = useState('');
+  const [order, setOrder] = useState<Order | null>(null);
   const [form, setForm] = useState({
     email: '',
     firstName: '',
@@ -30,57 +51,143 @@ const CheckoutPage: React.FC = () => {
           onClick={() => navigate('/')}
           className="brand-font text-xs tracking-widest text-sky-400 hover:text-white transition-colors"
         >
-          ← Browse Collection
+          &larr; Browse Collection
         </button>
       </div>
     );
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStep('processing');
-    setTimeout(() => {
+    setErrorMsg('');
+
+    try {
+      // Step 1: Process payment via mock Stripe
+      const payment = await createPaymentIntent(totalPrice, form.cardNumber.replace(/\s/g, ''));
+
+      if (payment.status === 'failed') {
+        const messages: Record<string, string> = {
+          insufficient_funds: 'Insufficient funds. Try test card 4242 4242 4242 4242.',
+          card_declined: 'Card declined. Try test card 4242 4242 4242 4242.',
+          stolen_card: 'Card flagged. Try test card 4242 4242 4242 4242.',
+        };
+        setErrorMsg(messages[payment.error || ''] || 'Payment failed. Please try again.');
+        setStep('error');
+        return;
+      }
+
+      // Step 2: Create order in backend
+      const orderItems = cart.map(item => ({
+        productId: item.id,
+        size: item.selectedSize,
+        quantity: item.quantity,
+      }));
+
+      const newOrder = await createOrder(orderItems, {
+        email: form.email,
+        firstName: form.firstName,
+        lastName: form.lastName,
+        address: form.address,
+        city: form.city,
+        zip: form.zip,
+        country: form.country,
+      }, payment.id);
+
+      setOrder(newOrder);
       setStep('success');
       clearCart();
-    }, 2500);
+    } catch (err) {
+      setErrorMsg(err instanceof Error ? err.message : 'Something went wrong');
+      setStep('error');
+    }
   };
 
   const updateField = (field: string, value: string) => {
     setForm(prev => ({ ...prev, [field]: value }));
   };
 
-  if (step === 'success') {
+  // ─── SUCCESS ────────────────────────────────────────────────────
+  if (step === 'success' && order) {
     return (
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="min-h-screen bg-[#0F0F0F] pt-40 pb-32 flex flex-col items-center justify-center text-center px-6"
+        className="min-h-screen bg-[#0F0F0F] pt-32 pb-32 px-6 md:px-12"
       >
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ type: 'spring', damping: 15 }}
-        >
-          <CheckCircle2 className="w-24 h-24 text-green-500 mb-8 mx-auto" />
-        </motion.div>
-        <h1 className="brand-font text-4xl text-white mb-4">Order Confirmed</h1>
-        <p className="brand-font text-sm text-sky-400 tracking-[0.3em] mb-2">WELCOME TO THE CLUB</p>
-        <p className="text-slate-400 max-w-md mb-12">
-          Your order is on its way. Discreet packaging, obviously. You will receive a confirmation at your email.
-        </p>
-        <p className="text-slate-500 text-xs mb-8 italic">
-          (This is a demo checkout — no real payment was processed)
-        </p>
-        <button
-          onClick={() => navigate('/')}
-          className="brand-font text-xs tracking-widest text-sky-400 hover:text-white transition-colors"
-        >
-          ← Back to Shop
-        </button>
+        <div className="max-w-2xl mx-auto text-center">
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: 'spring', damping: 15 }}
+          >
+            <CheckCircle2 className="w-24 h-24 text-green-500 mb-8 mx-auto" />
+          </motion.div>
+          <h1 className="brand-font text-4xl text-white mb-4">Order Confirmed</h1>
+          <p className="brand-font text-sm text-sky-400 tracking-[0.3em] mb-8">WELCOME TO THE CLUB</p>
+
+          {/* Order details card */}
+          <div className="bg-zinc-900/50 border border-white/5 p-8 text-left mb-8 space-y-6">
+            <div className="flex justify-between items-center border-b border-white/5 pb-4">
+              <span className="brand-font text-[10px] text-slate-500 tracking-widest">ORDER ID</span>
+              <span className="brand-font text-sm text-white">{order.id}</span>
+            </div>
+
+            <div className="space-y-3">
+              {order.items.map((item, i) => (
+                <div key={i} className="flex justify-between text-sm">
+                  <span className="text-slate-300">{item.name} ({item.size}) x{item.quantity}</span>
+                  <span className="text-white">${item.total}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="border-t border-white/5 pt-4 flex justify-between">
+              <span className="brand-font text-xs text-slate-400 tracking-widest">TOTAL</span>
+              <span className="brand-font text-xl text-white">${order.total}</span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/5">
+              <div className="flex items-center gap-3 p-3 bg-zinc-900 border border-white/5">
+                <Package className="w-5 h-5 text-sky-400 flex-shrink-0" />
+                <div>
+                  <p className="brand-font text-[8px] text-slate-500">TRACKING</p>
+                  <p className="text-xs text-white font-mono">{order.trackingNumber}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 p-3 bg-zinc-900 border border-white/5">
+                <Truck className="w-5 h-5 text-sky-400 flex-shrink-0" />
+                <div>
+                  <p className="brand-font text-[8px] text-slate-500">DELIVERY</p>
+                  <p className="text-xs text-white">{order.estimatedDelivery}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 p-3 bg-zinc-900 border border-white/5">
+                <Mail className="w-5 h-5 text-sky-400 flex-shrink-0" />
+                <div>
+                  <p className="brand-font text-[8px] text-slate-500">CONFIRMATION</p>
+                  <p className="text-xs text-white">Sent to email</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p className="text-slate-500 text-xs mb-8 italic">
+            (Test mode — mock Stripe payment processed, confirmation email logged to server)
+          </p>
+
+          <button
+            onClick={() => navigate('/')}
+            className="brand-font text-xs tracking-widest text-sky-400 hover:text-white transition-colors"
+          >
+            &larr; Back to Shop
+          </button>
+        </div>
       </motion.div>
     );
   }
 
+  // ─── PROCESSING ─────────────────────────────────────────────────
   if (step === 'processing') {
     return (
       <div className="min-h-screen bg-[#0F0F0F] pt-40 flex flex-col items-center justify-center text-center px-6">
@@ -89,12 +196,34 @@ const CheckoutPage: React.FC = () => {
           transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
           className="w-12 h-12 border-2 border-sky-400 border-t-transparent rounded-full mb-8"
         />
-        <h2 className="brand-font text-xl text-white mb-2">Placing Your Order</h2>
-        <p className="text-slate-500 brand-font text-[10px] tracking-[0.3em] uppercase">Processing payment...</p>
+        <h2 className="brand-font text-xl text-white mb-2">Processing Payment</h2>
+        <p className="text-slate-500 brand-font text-[10px] tracking-[0.3em] uppercase">
+          Connecting to Stripe (test mode)...
+        </p>
       </div>
     );
   }
 
+  // ─── ERROR ──────────────────────────────────────────────────────
+  if (step === 'error') {
+    return (
+      <div className="min-h-screen bg-[#0F0F0F] pt-40 flex flex-col items-center justify-center text-center px-6">
+        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring' }}>
+          <AlertCircle className="w-20 h-20 text-red-500 mb-8 mx-auto" />
+        </motion.div>
+        <h1 className="brand-font text-3xl text-white mb-4">Payment Failed</h1>
+        <p className="text-slate-400 max-w-md mb-8">{errorMsg}</p>
+        <button
+          onClick={() => setStep('form')}
+          className="bg-sky-500 hover:bg-sky-400 px-8 py-4 brand-font text-xs tracking-widest text-white transition-all"
+        >
+          Try Again
+        </button>
+      </div>
+    );
+  }
+
+  // ─── FORM ───────────────────────────────────────────────────────
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -189,21 +318,36 @@ const CheckoutPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Payment */}
+            {/* Payment — Mock Stripe */}
             <div>
               <h3 className="brand-font text-xs text-sky-400 tracking-widest mb-4 flex items-center gap-2">
-                <CreditCard className="w-4 h-4" /> Payment (Demo)
+                <CreditCard className="w-4 h-4" /> Payment
+                <span className="ml-auto text-[9px] text-slate-600 font-normal tracking-normal normal-case">
+                  Stripe Test Mode
+                </span>
               </h3>
-              <p className="text-[10px] text-slate-500 mb-4 uppercase tracking-wider">
-                This is a mockup — no real payment will be processed
-              </p>
+
+              {/* Test card hints */}
+              <div className="mb-4 p-3 bg-sky-500/5 border border-sky-500/10 rounded-sm">
+                <p className="text-[10px] text-sky-400/80 uppercase tracking-wider mb-2 brand-font">Test Cards</p>
+                <div className="space-y-1">
+                  {STRIPE_TEST_HINT.map(h => (
+                    <div key={h.card} className="flex justify-between text-[10px]">
+                      <span className="text-slate-400 font-mono">{h.card}</span>
+                      <span className="text-slate-500">{h.result}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               <input
                 type="text"
                 required
                 placeholder="Card number"
                 value={form.cardNumber}
-                onChange={(e) => updateField('cardNumber', e.target.value)}
-                className="w-full bg-zinc-900 border border-white/10 px-4 py-3 text-white text-sm focus:border-sky-400 focus:outline-none transition-colors"
+                onChange={(e) => updateField('cardNumber', formatCard(e.target.value))}
+                maxLength={19}
+                className="w-full bg-zinc-900 border border-white/10 px-4 py-3 text-white text-sm focus:border-sky-400 focus:outline-none transition-colors font-mono"
               />
               <div className="grid grid-cols-2 gap-4 mt-4">
                 <input
@@ -211,16 +355,18 @@ const CheckoutPage: React.FC = () => {
                   required
                   placeholder="MM/YY"
                   value={form.expiry}
-                  onChange={(e) => updateField('expiry', e.target.value)}
-                  className="bg-zinc-900 border border-white/10 px-4 py-3 text-white text-sm focus:border-sky-400 focus:outline-none transition-colors"
+                  onChange={(e) => updateField('expiry', formatExpiry(e.target.value))}
+                  maxLength={5}
+                  className="bg-zinc-900 border border-white/10 px-4 py-3 text-white text-sm focus:border-sky-400 focus:outline-none transition-colors font-mono"
                 />
                 <input
                   type="text"
                   required
                   placeholder="CVC"
                   value={form.cvc}
-                  onChange={(e) => updateField('cvc', e.target.value)}
-                  className="bg-zinc-900 border border-white/10 px-4 py-3 text-white text-sm focus:border-sky-400 focus:outline-none transition-colors"
+                  onChange={(e) => updateField('cvc', e.target.value.replace(/\D/g, '').slice(0, 4))}
+                  maxLength={4}
+                  className="bg-zinc-900 border border-white/10 px-4 py-3 text-white text-sm focus:border-sky-400 focus:outline-none transition-colors font-mono"
                 />
               </div>
             </div>
@@ -230,7 +376,7 @@ const CheckoutPage: React.FC = () => {
               className="w-full py-5 bg-sky-500 hover:bg-sky-400 text-white brand-font text-xs tracking-[0.3em] flex items-center justify-center gap-3 transition-all active:scale-[0.98]"
             >
               <Lock className="w-4 h-4" />
-              COMPLETE ORDER — ${totalPrice}
+              PAY ${totalPrice}
             </button>
           </form>
 
@@ -242,7 +388,7 @@ const CheckoutPage: React.FC = () => {
                 {cart.map((item) => (
                   <div key={`${item.id}-${item.selectedSize}`} className="flex gap-4">
                     <div className="w-16 h-20 bg-zinc-900 overflow-hidden border border-white/5 flex-shrink-0">
-                      <img src={item.image} className="w-full h-full object-cover" alt={item.name} />
+                      <img src={item.image} className="w-full h-full object-cover" alt={item.name} loading="lazy" />
                     </div>
                     <div className="flex-1">
                       <p className="brand-font text-[10px] text-white tracking-widest">{item.name}</p>
