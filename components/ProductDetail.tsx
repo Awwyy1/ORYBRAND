@@ -1,12 +1,15 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronRight, ChevronDown, ShoppingBag, Truck, CreditCard, Box } from 'lucide-react';
+import { X, ChevronRight, ChevronDown, ShoppingBag, Truck, CreditCard, Box, ZoomIn } from 'lucide-react';
 import { Product, ProductSize } from '../types';
 import { useCart } from '../context/CartContext';
 import OptimizedImage from './OptimizedImage';
 import SizeChart from './SizeChart';
 import Breadcrumbs from './Breadcrumbs';
+import ImageZoom from './ImageZoom';
+import RecentlyViewed from './RecentlyViewed';
+import { useRecentlyViewed } from '../lib/useRecentlyViewed';
 
 interface ProductDetailProps {
   product: Product;
@@ -48,9 +51,17 @@ const FAQAccordion: React.FC<{ question: string; answer: string }> = ({ question
 
 const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
   const { addToCart } = useCart();
+  const { addViewed } = useRecentlyViewed();
   const [activeImage, setActiveImage] = useState(product.image);
   const [selectedSize, setSelectedSize] = useState<ProductSize>(product.sizes[1]);
   const [isAdding, setIsAdding] = useState(false);
+  const [isZoomOpen, setIsZoomOpen] = useState(false);
+  const activeGalleryIndex = product.gallery.indexOf(activeImage);
+  const zoomIndex = activeGalleryIndex >= 0 ? activeGalleryIndex : 0;
+
+  useEffect(() => {
+    addViewed(product.id);
+  }, [product.id, addViewed]);
 
   const handleAdd = () => {
     setIsAdding(true);
@@ -73,8 +84,11 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           {/* Gallery Section */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="aspect-[4/5] titanium-border overflow-hidden bg-zinc-900 rounded-sm">
-              <motion.img 
+            <div
+              className="aspect-[4/5] titanium-border overflow-hidden bg-zinc-900 rounded-sm relative group cursor-zoom-in"
+              onClick={() => setIsZoomOpen(true)}
+            >
+              <motion.img
                 key={activeImage}
                 initial={{ opacity: 0, scale: 1.1 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -83,6 +97,9 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
                 alt={`${product.name} — ${product.description}, full product view`}
                 loading="lazy"
               />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                <ZoomIn className="w-8 h-8 text-white opacity-0 group-hover:opacity-80 transition-opacity" />
+              </div>
             </div>
             <div className="grid grid-cols-4 gap-4">
               {product.gallery.map((img, i) => (
@@ -192,6 +209,19 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
           </div>
         </div>
       </div>
+
+      <div className="max-w-7xl mx-auto">
+        <RecentlyViewed currentProductId={product.id} />
+      </div>
+
+      <ImageZoom
+        images={product.gallery}
+        activeIndex={zoomIndex}
+        alt={`${product.name} — ${product.description}`}
+        isOpen={isZoomOpen}
+        onClose={() => setIsZoomOpen(false)}
+        onIndexChange={(i) => setActiveImage(product.gallery[i])}
+      />
     </motion.div>
   );
 };

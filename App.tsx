@@ -11,6 +11,7 @@ import WhySilk from './components/WhySilk';
 import CartDrawer from './components/CartDrawer';
 import Footer from './components/Footer';
 import SideMenu from './components/SideMenu';
+import CompareModels from './components/CompareModels';
 
 // Lazy-loaded routes (H7: Code splitting)
 const ProductDetailPage = lazy(() => import('./components/ProductDetailPage'));
@@ -30,6 +31,7 @@ const HomePage: React.FC = () => (
     <Philosophy />
     <WhySilk />
     <ProductGrid />
+    <CompareModels />
     <Reviews />
   </>
 );
