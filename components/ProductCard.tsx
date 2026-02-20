@@ -135,7 +135,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <div className="mt-6 flex justify-between items-start">
         <div>
           <h3 className="brand-font text-sm text-white mb-1 group-hover:text-sky-400 transition-colors">{product.name}</h3>
-          <p className="text-[10px] uppercase text-slate-500 tracking-widest">{product.description}</p>
+          <p className="text-[10px] uppercase text-slate-400 tracking-widest">{product.description}</p>
         </div>
         <p className="brand-font text-sky-400 text-sm">${product.price}</p>
       </div>

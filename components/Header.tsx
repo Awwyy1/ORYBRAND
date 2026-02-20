@@ -33,7 +33,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuOpen, onHome }) => {
         <button
           onClick={onMenuOpen}
           aria-label="Open navigation menu"
-          className="group flex items-center gap-3 focus:outline-none"
+          className="group flex items-center gap-3"
         >
           <Menu className="w-6 h-6 text-white group-hover:text-sky-400 transition-colors" />
           <span className="brand-font text-[10px] tracking-widest hidden md:block text-white group-hover:text-sky-400">Index</span>
@@ -54,7 +54,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuOpen, onHome }) => {
         animate={{ opacity: 1, x: 0 }}
         onClick={() => setIsCartOpen(true)}
         aria-label={`Shopping bag${cartCount > 0 ? `, ${cartCount} items` : ''}`}
-        className="relative group focus:outline-none"
+        className="relative group"
       >
         <motion.div animate={controls}>
           <ShoppingBag className="w-6 h-6 text-white group-hover:text-sky-400 transition-colors" />

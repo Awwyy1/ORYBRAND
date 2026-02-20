@@ -95,7 +95,7 @@ const Hero: React.FC = () => {
           {usps.map((usp) => (
             <div key={usp.label} className="text-center">
               <p className="brand-font text-[10px] md:text-xs text-white tracking-widest">{usp.label}</p>
-              <p className="text-[9px] text-slate-500 uppercase tracking-wider mt-1">{usp.detail}</p>
+              <p className="text-[9px] text-slate-400 uppercase tracking-wider mt-1">{usp.detail}</p>
             </div>
           ))}
         </motion.div>

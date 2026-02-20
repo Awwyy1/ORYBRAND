@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+/* H23: Global focus-visible ring for keyboard navigation */
+@layer base {
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible,
+  [role="slider"]:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid #38bdf8;
+    outline-offset: 2px;
+  }
+
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: none;
+  }
+}

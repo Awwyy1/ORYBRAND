@@ -11,7 +11,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
         <div className="text-center md:text-left">
           <h2 className="brand-font text-2xl mb-4 text-white">ORY</h2>
-          <p className="text-xs text-slate-500 max-w-xs leading-relaxed uppercase tracking-widest">
+          <p className="text-xs text-slate-400 max-w-xs leading-relaxed uppercase tracking-widest">
             For those with balls. Precision engineered silk for the modern man.
           </p>
         </div>
@@ -19,7 +19,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-12">
           <div>
             <h4 className="brand-font text-[10px] text-sky-400 mb-4">Explore</h4>
-            <ul className="text-xs space-y-2 text-slate-500 uppercase tracking-widest">
+            <ul className="text-xs space-y-2 text-slate-400 uppercase tracking-widest">
               <li onClick={() => window.scrollTo(0, document.getElementById('shop')?.offsetTop || 0)} className="hover:text-white cursor-pointer transition-colors">Collection</li>
               <li onClick={() => onNavigate('technology')} className="hover:text-white cursor-pointer transition-colors">Technology</li>
               <li onClick={() => onNavigate('philosophy')} className="hover:text-white cursor-pointer transition-colors">Philosophy</li>
@@ -27,7 +27,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </div>
           <div>
             <h4 className="brand-font text-[10px] text-sky-400 mb-4">Support</h4>
-            <ul className="text-xs space-y-2 text-slate-500 uppercase tracking-widest">
+            <ul className="text-xs space-y-2 text-slate-400 uppercase tracking-widest">
               <li onClick={() => onNavigate('shipping')} className="hover:text-white cursor-pointer transition-colors">Shipping</li>
               <li onClick={() => onNavigate('returns')} className="hover:text-white cursor-pointer transition-colors">Returns</li>
               <li onClick={() => onNavigate('privacy')} className="hover:text-white cursor-pointer transition-colors">Privacy</li>
@@ -37,7 +37,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
       </div>
       
       <div className="mt-16 text-center border-t border-white/5 pt-8">
-        <p className="text-[10px] text-slate-600 uppercase tracking-[0.3em]">
+        <p className="text-[10px] text-slate-400 uppercase tracking-[0.3em]">
           &copy; {new Date().getFullYear()} ORY. LUXURY WHERE IT MATTERS MOST.
         </p>
       </div>

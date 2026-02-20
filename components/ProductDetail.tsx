@@ -25,7 +25,7 @@ const FAQAccordion: React.FC<{ question: string; answer: string }> = ({ question
           {question}
         </span>
         <motion.div animate={{ rotate: isOpen ? 180 : 0 }}>
-          <ChevronDown className="w-4 h-4 text-slate-500" />
+          <ChevronDown className="w-4 h-4 text-slate-400" />
         </motion.div>
       </button>
       <AnimatePresence>
@@ -116,7 +116,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
             <div className="space-y-8 mb-12">
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="brand-font text-[10px] text-slate-500 tracking-widest">Select Your Size</span>
+                  <span className="brand-font text-[10px] text-slate-400 tracking-widest">Select Your Size</span>
                   <SizeChart
                     selectedSize={selectedSize}
                     onSizeSelect={(s) => setSelectedSize(s as any)}
@@ -130,7 +130,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
                       className={`w-14 h-14 brand-font text-xs flex items-center justify-center border transition-all ${
                         selectedSize === size
                           ? 'bg-white text-black border-white shadow-[0_0_20px_rgba(255,255,255,0.2)]'
-                          : 'bg-transparent border-white/10 text-slate-500 hover:border-white/40'
+                          : 'bg-transparent border-white/10 text-slate-400 hover:border-white/40'
                       }`}
                     >
                       {size}
@@ -173,12 +173,12 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
               <div className="grid grid-cols-2 gap-4 mb-8">
                 <div className="p-4 bg-zinc-900/50 border border-white/5 rounded-sm">
                   <Truck className="w-4 h-4 text-sky-400 mb-2" />
-                  <p className="brand-font text-[8px] text-slate-500 mb-1">Shipping</p>
+                  <p className="brand-font text-[8px] text-slate-400 mb-1">Shipping</p>
                   <p className="text-[10px] text-white">Free Delivery in 3-5 Days</p>
                 </div>
                 <div className="p-4 bg-zinc-900/50 border border-white/5 rounded-sm">
                   <CreditCard className="w-4 h-4 text-sky-400 mb-2" />
-                  <p className="brand-font text-[8px] text-slate-500 mb-1">Payment</p>
+                  <p className="brand-font text-[8px] text-slate-400 mb-1">Payment</p>
                   <p className="text-[10px] text-white">Secure Payment</p>
                 </div>
               </div>

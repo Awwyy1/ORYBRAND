@@ -23,7 +23,7 @@ const SizeChart: React.FC<SizeChartProps> = ({ selectedSize, onSizeSelect }) => 
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 text-slate-500 hover:text-sky-400 transition-colors"
+        className="flex items-center gap-2 text-slate-400 hover:text-sky-400 transition-colors"
       >
         <Ruler className="w-3 h-3" />
         <span className="text-[10px] uppercase tracking-widest underline underline-offset-4">Size Guide</span>
@@ -102,7 +102,7 @@ const SizeChart: React.FC<SizeChartProps> = ({ selectedSize, onSizeSelect }) => 
               </div>
 
               <div className="mt-6 pt-4 border-t border-white/5">
-                <p className="text-[10px] text-slate-500 leading-relaxed">
+                <p className="text-[10px] text-slate-400 leading-relaxed">
                   Measurements in inches. If between sizes, we recommend sizing up for a relaxed fit
                   or sizing down for a compression fit. All ORY products feature 4-way stretch silk
                   that adapts to your body.

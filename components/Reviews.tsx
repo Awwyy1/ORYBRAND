@@ -81,15 +81,15 @@ const Reviews: React.FC = () => {
 
             <div className="border-t border-white/5 pt-4">
               <p className="brand-font text-[10px] text-white tracking-widest">{review.name}</p>
-              <p className="text-[9px] text-slate-500 uppercase tracking-wider mt-1">{review.location}</p>
-              <p className="text-[9px] text-sky-400/60 uppercase tracking-wider mt-1">{review.product}</p>
+              <p className="text-[9px] text-slate-400 uppercase tracking-wider mt-1">{review.location}</p>
+              <p className="text-[9px] text-sky-400 uppercase tracking-wider mt-1">{review.product}</p>
             </div>
           </motion.div>
         ))}
       </div>
 
       <motion.div {...fadeInUp} className="mt-12 text-center">
-        <p className="text-slate-500 text-xs uppercase tracking-widest">
+        <p className="text-slate-400 text-xs uppercase tracking-widest">
           4.8 / 5 average from 1,200+ reviews
         </p>
       </motion.div>

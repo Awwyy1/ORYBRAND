@@ -166,7 +166,7 @@ const CheckoutPage: React.FC = () => {
           {/* Order details card */}
           <div className="bg-zinc-900/50 border border-white/5 p-8 text-left mb-8 space-y-6">
             <div className="flex justify-between items-center border-b border-white/5 pb-4">
-              <span className="brand-font text-[10px] text-slate-500 tracking-widest">ORDER ID</span>
+              <span className="brand-font text-[10px] text-slate-400 tracking-widest">ORDER ID</span>
               <span className="brand-font text-sm text-white">{order.id}</span>
             </div>
 
@@ -188,28 +188,28 @@ const CheckoutPage: React.FC = () => {
               <div className="flex items-center gap-3 p-3 bg-zinc-900 border border-white/5">
                 <Package className="w-5 h-5 text-sky-400 flex-shrink-0" />
                 <div>
-                  <p className="brand-font text-[8px] text-slate-500">TRACKING</p>
+                  <p className="brand-font text-[8px] text-slate-400">TRACKING</p>
                   <p className="text-xs text-white font-mono">{order.trackingNumber}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 p-3 bg-zinc-900 border border-white/5">
                 <Truck className="w-5 h-5 text-sky-400 flex-shrink-0" />
                 <div>
-                  <p className="brand-font text-[8px] text-slate-500">DELIVERY</p>
+                  <p className="brand-font text-[8px] text-slate-400">DELIVERY</p>
                   <p className="text-xs text-white">{order.estimatedDelivery}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 p-3 bg-zinc-900 border border-white/5">
                 <Mail className="w-5 h-5 text-sky-400 flex-shrink-0" />
                 <div>
-                  <p className="brand-font text-[8px] text-slate-500">CONFIRMATION</p>
+                  <p className="brand-font text-[8px] text-slate-400">CONFIRMATION</p>
                   <p className="text-xs text-white">Sent to email</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <p className="text-slate-500 text-xs mb-8 italic">
+          <p className="text-slate-400 text-xs mb-8 italic">
             (Test mode — mock Stripe payment processed, confirmation email logged to server)
           </p>
 
@@ -234,7 +234,7 @@ const CheckoutPage: React.FC = () => {
           className="w-12 h-12 border-2 border-sky-400 border-t-transparent rounded-full mb-8"
         />
         <h2 className="brand-font text-xl text-white mb-2">Processing Payment</h2>
-        <p className="text-slate-500 brand-font text-[10px] tracking-[0.3em] uppercase">
+        <p className="text-slate-400 brand-font text-[10px] tracking-[0.3em] uppercase">
           Connecting to Stripe (test mode)...
         </p>
       </div>
@@ -353,19 +353,19 @@ const CheckoutPage: React.FC = () => {
             <div>
               <h3 className="brand-font text-xs text-sky-400 tracking-widest mb-4 flex items-center gap-2">
                 <CreditCard className="w-4 h-4" /> Payment
-                <span className="ml-auto text-[9px] text-slate-600 font-normal tracking-normal normal-case">
+                <span className="ml-auto text-[9px] text-slate-400 font-normal tracking-normal normal-case">
                   Stripe Test Mode
                 </span>
               </h3>
 
               {/* Test card hints */}
               <div className="mb-4 p-3 bg-sky-500/5 border border-sky-500/10 rounded-sm">
-                <p className="text-[10px] text-sky-400/80 uppercase tracking-wider mb-2 brand-font">Test Cards</p>
+                <p className="text-[10px] text-sky-400 uppercase tracking-wider mb-2 brand-font">Test Cards</p>
                 <div className="space-y-1">
                   {STRIPE_TEST_HINT.map(h => (
                     <div key={h.card} className="flex justify-between text-[10px]">
                       <span className="text-slate-400 font-mono">{h.card}</span>
-                      <span className="text-slate-500">{h.result}</span>
+                      <span className="text-slate-400">{h.result}</span>
                     </div>
                   ))}
                 </div>
@@ -432,7 +432,7 @@ const CheckoutPage: React.FC = () => {
                     </div>
                     <div className="flex-1">
                       <p className="brand-font text-[10px] text-white tracking-widest">{item.name}</p>
-                      <p className="text-[10px] text-slate-500 uppercase mt-1">Size: {item.selectedSize} / Qty: {item.quantity}</p>
+                      <p className="text-[10px] text-slate-400 uppercase mt-1">Size: {item.selectedSize} / Qty: {item.quantity}</p>
                       <p className="brand-font text-sky-400 text-xs mt-2">${item.price * item.quantity}</p>
                     </div>
                   </div>
