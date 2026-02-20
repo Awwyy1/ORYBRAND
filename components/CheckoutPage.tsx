@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Lock, CreditCard, Truck, CheckCircle2, ArrowLeft, AlertCircle, Mail, Package } from 'lucide-react';
+import { Lock, CreditCard, Truck, CheckCircle2, ArrowLeft, AlertCircle, Mail, Package, Tag, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { createPaymentIntent, createOrder } from '../lib/api';
 import type { Order } from '../lib/api';
@@ -49,7 +49,8 @@ function validateForm(form: Record<string, string>): string | null {
 
 const CheckoutPage: React.FC = () => {
   const navigate = useNavigate();
-  const { cart, totalPrice, clearCart } = useCart();
+  const { cart, totalPrice, subtotalPrice, discount, appliedPromo, promoError, applyPromo, removePromo, clearCart } = useCart();
+  const [promoInput, setPromoInput] = useState('');
   const [step, setStep] = useState<'form' | 'processing' | 'success' | 'error'>('form');
   const [errorMsg, setErrorMsg] = useState('');
   const [order, setOrder] = useState<Order | null>(null);
@@ -439,10 +440,51 @@ const CheckoutPage: React.FC = () => {
                 ))}
               </div>
               <div className="mt-8 pt-6 border-t border-white/5 space-y-3">
+                {/* Promo Code */}
+                <div className="pb-3">
+                  {appliedPromo ? (
+                    <div className="flex items-center justify-between bg-sky-500/10 border border-sky-500/20 px-3 py-2">
+                      <div className="flex items-center gap-2">
+                        <Tag className="w-3 h-3 text-sky-400" />
+                        <span className="brand-font text-[10px] text-sky-400 tracking-widest">{appliedPromo.code}</span>
+                        <span className="text-[10px] text-slate-400">{appliedPromo.description}</span>
+                      </div>
+                      <button onClick={removePromo} className="text-slate-400 hover:text-white transition-colors">
+                        <X className="w-3 h-3" />
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        placeholder="Promo code"
+                        value={promoInput}
+                        onChange={(e) => setPromoInput(e.target.value.toUpperCase())}
+                        onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); applyPromo(promoInput); setPromoInput(''); } }}
+                        className="flex-1 bg-zinc-900 border border-white/10 px-3 py-2 text-white text-xs brand-font tracking-widest focus:border-sky-400 focus:outline-none transition-colors uppercase"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => { applyPromo(promoInput); setPromoInput(''); }}
+                        className="px-4 py-2 bg-white/5 border border-white/10 brand-font text-[10px] text-white tracking-widest hover:bg-white/10 transition-colors"
+                      >
+                        Apply
+                      </button>
+                    </div>
+                  )}
+                  {promoError && <p className="text-red-400 text-[10px] mt-1">{promoError}</p>}
+                </div>
+
                 <div className="flex justify-between text-xs text-slate-400">
                   <span>Subtotal</span>
-                  <span>${totalPrice}</span>
+                  <span>${subtotalPrice}</span>
                 </div>
+                {discount > 0 && (
+                  <div className="flex justify-between text-xs">
+                    <span className="text-sky-400">Discount</span>
+                    <span className="text-sky-400">-${discount}</span>
+                  </div>
+                )}
                 <div className="flex justify-between text-xs text-slate-400">
                   <span>Shipping</span>
                   <span className="text-green-500">Free</span>
