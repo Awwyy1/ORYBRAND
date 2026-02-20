@@ -78,7 +78,7 @@ const CartDrawer: React.FC = () => {
             <div className="flex-1 overflow-y-auto space-y-8 pr-2">
               {cart.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
-                  <p className="text-slate-500 brand-font text-xs uppercase tracking-widest">Nothing here yet</p>
+                  <p className="text-slate-400 brand-font text-xs uppercase tracking-widest">Nothing here yet</p>
                   <button
                     onClick={() => setIsCartOpen(false)}
                     className="text-sky-400 brand-font text-[10px] underline underline-offset-4 uppercase"
@@ -104,10 +104,10 @@ const CartDrawer: React.FC = () => {
                             onClick={() => removeFromCart(item.id, item.selectedSize)}
                             aria-label={`Remove ${item.name} size ${item.selectedSize}`}
                           >
-                            <X className="w-3 h-3 text-slate-600 hover:text-red-500 transition-colors" />
+                            <X className="w-3 h-3 text-slate-400 hover:text-red-500 transition-colors" />
                           </button>
                         </div>
-                        <p className="text-[10px] text-slate-500 uppercase mt-1">Size: {item.selectedSize}</p>
+                        <p className="text-[10px] text-slate-400 uppercase mt-1">Size: {item.selectedSize}</p>
                       </div>
                       <div className="flex justify-between items-center">
                         <div className="flex items-center gap-4 bg-zinc-900/50 p-1 px-3 border border-white/5">
@@ -148,7 +148,7 @@ const CartDrawer: React.FC = () => {
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                       <motion.span
                         style={{ opacity }}
-                        className="brand-font text-[10px] tracking-[0.3em] text-slate-500 uppercase"
+                        className="brand-font text-[10px] tracking-[0.3em] text-slate-400 uppercase"
                       >
                         Slide to Checkout
                       </motion.span>

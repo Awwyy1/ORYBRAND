@@ -31,7 +31,7 @@ const Philosophy: React.FC = () => {
         <motion.div {...fadeInUp} transition={{ delay: 0.4 }} className="flex justify-end">
           <div className="text-right">
             <h3 className="brand-font text-sky-400 mb-2">Technical Specification</h3>
-            <p className="text-slate-500 uppercase text-xs tracking-widest leading-loose">
+            <p className="text-slate-400 uppercase text-xs tracking-widest leading-loose">
               100% Grade 6A Mulberry Silk<br/>
               Invisible Flat-Lock Stitching<br/>
               Zero-Pressure Waistband

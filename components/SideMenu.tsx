@@ -90,11 +90,11 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, onNavigate }) => {
 
             {/* Swipe hint for mobile */}
             <div className="md:hidden text-center mb-6">
-              <span className="text-[9px] text-slate-600 uppercase tracking-wider">Swipe left to close</span>
+              <span className="text-[9px] text-slate-400 uppercase tracking-wider">Swipe left to close</span>
             </div>
 
             <div className="mt-auto">
-              <p className="brand-font text-[10px] text-slate-600 uppercase tracking-widest leading-loose">
+              <p className="brand-font text-[10px] text-slate-400 uppercase tracking-widest leading-loose">
                 ORY<br/>
                 PREMIUM SILK<br/>
                 EST. 2024

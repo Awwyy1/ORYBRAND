@@ -18,7 +18,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
         <li>
           <Link
             to="/"
-            className="text-[10px] text-slate-500 uppercase tracking-widest hover:text-sky-400 transition-colors"
+            className="text-[10px] text-slate-400 uppercase tracking-widest hover:text-sky-400 transition-colors"
           >
             Home
           </Link>
@@ -27,7 +27,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
           const isLast = i === items.length - 1;
           return (
             <li key={i} className="flex items-center gap-1">
-              <ChevronRight className="w-3 h-3 text-slate-600" />
+              <ChevronRight className="w-3 h-3 text-slate-400" />
               {isLast || !item.href ? (
                 <span className="text-[10px] text-white uppercase tracking-widest">
                   {item.label}
@@ -35,7 +35,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
               ) : (
                 <Link
                   to={item.href}
-                  className="text-[10px] text-slate-500 uppercase tracking-widest hover:text-sky-400 transition-colors"
+                  className="text-[10px] text-slate-400 uppercase tracking-widest hover:text-sky-400 transition-colors"
                 >
                   {item.label}
                 </Link>

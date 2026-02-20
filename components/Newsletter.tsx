@@ -114,7 +114,7 @@ const Newsletter: React.FC = () => {
           <p className="text-red-400 text-xs mt-3">{errorMsg}</p>
         )}
 
-        <p className="text-slate-600 text-[10px] mt-4 uppercase tracking-wider">
+        <p className="text-slate-400 text-[10px] mt-4 uppercase tracking-wider">
           Unsubscribe anytime. We respect your privacy.
         </p>
       </motion.div>
