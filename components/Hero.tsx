@@ -20,12 +20,12 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 z-0">
         <picture>
           <source
-            srcSet="https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&q=75&w=800&fm=webp 800w, https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&q=75&w=1200&fm=webp 1200w, https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&q=75&w=1920&fm=webp 1920w"
+            srcSet="/images/hero.png 1920w"
             sizes="100vw"
-            type="image/webp"
+            type="image/png"
           />
           <img
-            src="https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&q=80&w=1920"
+            src="/images/hero.png"
             alt="Luxury silk fabric texture"
             loading="eager"
             decoding="async"
