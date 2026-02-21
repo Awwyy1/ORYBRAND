@@ -9,23 +9,17 @@ const Hero: React.FC = () => {
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
-  const usps = [
-    { label: '100% Grade 6A Silk', detail: 'Mulberry' },
-    { label: 'Free Shipping', detail: 'Worldwide' },
-    { label: '30-Day Returns', detail: 'No Questions' },
-  ];
-
   return (
     <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-black">
       <div className="absolute inset-0 z-0">
         <picture>
           <source
-            srcSet="https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&q=75&w=800&fm=webp 800w, https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&q=75&w=1200&fm=webp 1200w, https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&q=75&w=1920&fm=webp 1920w"
+            srcSet="/images/hero.png 1920w"
             sizes="100vw"
-            type="image/webp"
+            type="image/png"
           />
           <img
-            src="https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&q=80&w=1920"
+            src="/images/hero.png"
             alt="Luxury silk fabric texture"
             loading="eager"
             decoding="async"
@@ -38,7 +32,7 @@ const Hero: React.FC = () => {
 
       <motion.div
         style={{ y: y1, opacity }}
-        className="relative z-10 text-center px-4"
+        className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center px-4 mt-32 md:mt-44"
       >
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -49,24 +43,11 @@ const Hero: React.FC = () => {
           Premium Silk Underwear for Men
         </motion.p>
 
-        <h1 className="brand-font text-7xl md:text-[12rem] font-bold text-gradient-silver tracking-tighter mb-4 drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]">
-          ORY
+        <h1 className="brand-font text-xl md:text-4xl tracking-[0.35em] text-sky-400 mb-8 uppercase">
+          FOR THOSE WITH BALLS
         </h1>
 
-        <p className="brand-font text-sm md:text-xl tracking-[1em] text-sky-400 mb-6 uppercase">
-          FOR THOSE WITH BALLS
-        </p>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 1 }}
-          className="text-slate-400 text-sm md:text-base max-w-lg mx-auto mb-10 leading-relaxed font-light"
-        >
-          Engineered from the finest Mulberry silk. Zero friction, absolute comfort, unmatched confidence. Starting at $85.
-        </motion.p>
-
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <motion.button
             whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(56, 189, 248, 0.4)' }}
             whileTap={{ scale: 0.95 }}
@@ -85,29 +66,15 @@ const Hero: React.FC = () => {
           </motion.button>
         </div>
 
-        {/* USP Badges */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.8 }}
-          className="flex flex-wrap justify-center gap-6 md:gap-10"
-        >
-          {usps.map((usp) => (
-            <div key={usp.label} className="text-center">
-              <p className="brand-font text-[10px] md:text-xs text-white tracking-widest">{usp.label}</p>
-              <p className="text-[9px] text-slate-400 uppercase tracking-wider mt-1">{usp.detail}</p>
-            </div>
-          ))}
-        </motion.div>
       </motion.div>
 
       <motion.div
         animate={{ y: [0, 10, 0] }}
         transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-10 left-0 w-full flex flex-col items-center justify-center gap-2 pointer-events-none"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center gap-2 pointer-events-none"
       >
         <div className="w-[1px] h-12 bg-gradient-to-b from-white to-transparent opacity-30"></div>
-        <span className="brand-font text-[10px] tracking-[0.4em] opacity-50 uppercase text-center w-full">Explore</span>
+        <span className="brand-font text-[10px] tracking-[0.4em] opacity-50 uppercase text-center">Explore</span>
       </motion.div>
     </section>
   );
