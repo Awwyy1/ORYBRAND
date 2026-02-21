@@ -32,7 +32,7 @@ const Hero: React.FC = () => {
 
       <motion.div
         style={{ y: y1, opacity }}
-        className="relative z-10 text-center px-4 mt-24 md:mt-32"
+        className="relative z-10 text-center px-4 mt-32 md:mt-44"
 
       >
         <motion.p
