@@ -32,7 +32,7 @@ const Hero: React.FC = () => {
 
       <motion.div
         style={{ y: y1, opacity }}
-        className="relative z-10 text-center px-4"
+        className="relative z-10 text-center px-4 mt-20 md:mt-24"
       >
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -46,15 +46,6 @@ const Hero: React.FC = () => {
         <h1 className="brand-font text-xl md:text-4xl tracking-[0.35em] text-sky-400 mb-8 uppercase">
           FOR THOSE WITH BALLS
         </h1>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 1 }}
-          className="text-slate-400 text-sm md:text-base max-w-lg mx-auto mb-10 leading-relaxed font-light"
-        >
-          Engineered from the finest Mulberry silk. Zero friction, absolute comfort, unmatched confidence. Starting at $85.
-        </motion.p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <motion.button
