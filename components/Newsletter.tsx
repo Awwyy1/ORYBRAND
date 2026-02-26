@@ -45,7 +45,7 @@ const Newsletter: React.FC = () => {
   };
 
   return (
-    <section className="py-24 px-6 md:px-12 bg-white border-t border-black/5">
+    <section className="py-24 px-6 md:px-12 bg-black border-t border-white/5">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -53,9 +53,9 @@ const Newsletter: React.FC = () => {
         transition={{ duration: 0.6 }}
         className="max-w-xl mx-auto text-center"
       >
-        <Mail className="w-8 h-8 text-sky-600 mx-auto mb-6" />
-        <h2 className="brand-font text-2xl md:text-3xl text-zinc-900 mb-4">Stay in the Loop</h2>
-        <p className="text-slate-600 text-sm font-light mb-8 leading-relaxed">
+        <Mail className="w-8 h-8 text-sky-400 mx-auto mb-6" />
+        <h2 className="brand-font text-2xl md:text-3xl text-white mb-4">Stay in the Loop</h2>
+        <p className="text-slate-400 text-sm font-light mb-8 leading-relaxed">
           New drops, exclusive offers, and early access. No spam, just silk.
         </p>
 
@@ -86,12 +86,12 @@ const Newsletter: React.FC = () => {
                 placeholder="Your email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 bg-zinc-100 border border-black/10 border-r-0 px-5 py-4 text-zinc-900 text-sm focus:border-sky-600 focus:outline-none transition-colors"
+                className="flex-1 bg-zinc-900 border border-white/10 border-r-0 px-5 py-4 text-white text-sm focus:border-sky-400 focus:outline-none transition-colors"
               />
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="bg-sky-600 hover:bg-sky-500 px-6 py-4 brand-font text-xs tracking-widest text-white transition-all flex items-center gap-2 active:scale-[0.98]"
+                className="bg-sky-500 hover:bg-sky-400 px-6 py-4 brand-font text-xs tracking-widest text-white transition-all flex items-center gap-2 active:scale-[0.98]"
               >
                 {status === 'loading' ? (
                   <motion.div
@@ -114,7 +114,7 @@ const Newsletter: React.FC = () => {
           <p className="text-red-400 text-xs mt-3">{errorMsg}</p>
         )}
 
-        <p className="text-slate-600 text-[10px] mt-4 uppercase tracking-wider">
+        <p className="text-slate-400 text-[10px] mt-4 uppercase tracking-wider">
           Unsubscribe anytime. We respect your privacy.
         </p>
       </motion.div>

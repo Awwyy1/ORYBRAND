@@ -11,17 +11,17 @@ const Philosophy: React.FC = () => {
   };
 
   return (
-    <section className="py-32 px-6 md:px-24 bg-[#F8F9FA]">
+    <section className="py-32 px-6 md:px-24 bg-[#0F0F0F]">
       <div className="max-w-4xl mx-auto space-y-24">
         <motion.div {...fadeInUp}>
           <h2 className="brand-font text-2xl md:text-4xl leading-tight mb-8">
             Ordinary cotton is for ordinary days. <br/>
-            <span className="text-sky-600">Silk is for the moments that matter.</span>
+            <span className="text-sky-400">Silk is for the moments that matter.</span>
           </h2>
         </motion.div>
 
         <motion.div {...fadeInUp} transition={{ delay: 0.2 }}>
-          <p className="text-lg md:text-2xl font-light text-slate-600 leading-relaxed border-l-2 border-sky-600 pl-8">
+          <p className="text-lg md:text-2xl font-light text-slate-400 leading-relaxed border-l-2 border-sky-400 pl-8">
             Friction-free engineering for your most valuable assets. 
             Designed with obsession. Built for those who give a damn.
             The feeling of liquid titanium against your skin.
@@ -30,8 +30,8 @@ const Philosophy: React.FC = () => {
 
         <motion.div {...fadeInUp} transition={{ delay: 0.4 }} className="flex justify-end">
           <div className="text-right">
-            <h3 className="brand-font text-sky-600 mb-2">Technical Specification</h3>
-            <p className="text-slate-600 uppercase text-xs tracking-widest leading-loose">
+            <h3 className="brand-font text-sky-400 mb-2">Technical Specification</h3>
+            <p className="text-slate-400 uppercase text-xs tracking-widest leading-loose">
               100% Grade 6A Mulberry Silk<br/>
               Invisible Flat-Lock Stitching<br/>
               Zero-Pressure Waistband

@@ -26,7 +26,7 @@ const CompareModels: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="py-24 px-6 md:px-12 bg-[#F8F9FA]">
+    <section className="py-24 px-6 md:px-12 bg-[#0F0F0F]">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -35,9 +35,9 @@ const CompareModels: React.FC = () => {
         className="max-w-6xl mx-auto"
       >
         <div className="mb-12">
-          <h2 className="brand-font text-3xl text-zinc-900 mb-4">Compare Models</h2>
-          <div className="w-20 h-1 bg-sky-600 mb-4"></div>
-          <p className="text-slate-600 text-sm max-w-lg">Find the perfect ORY for your lifestyle. Every model uses Grade 6A Mulberry silk — the difference is in the engineering.</p>
+          <h2 className="brand-font text-3xl text-white mb-4">Compare Models</h2>
+          <div className="w-20 h-1 bg-sky-500 mb-4"></div>
+          <p className="text-slate-400 text-sm max-w-lg">Find the perfect ORY for your lifestyle. Every model uses Grade 6A Mulberry silk — the difference is in the engineering.</p>
         </div>
 
         <div className="overflow-x-auto -mx-6 px-6">
@@ -54,7 +54,7 @@ const CompareModels: React.FC = () => {
                       <div className="w-16 h-16 mx-auto mb-3 rounded-sm overflow-hidden titanium-border">
                         <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
                       </div>
-                      <p className="brand-font text-xs text-zinc-900 group-hover:text-sky-600 transition-colors">{p.name}</p>
+                      <p className="brand-font text-xs text-white group-hover:text-sky-400 transition-colors">{p.name}</p>
                       <p className="text-[9px] text-slate-500 mt-1">{p.description}</p>
                     </div>
                   </th>
@@ -64,7 +64,7 @@ const CompareModels: React.FC = () => {
             <tbody>
               {SPECS.map((spec, i) => (
                 <tr key={spec.label} className={i % 2 === 0 ? 'bg-white/[0.02]' : ''}>
-                  <td className="py-4 pr-4 brand-font text-[10px] tracking-widest text-slate-600 whitespace-nowrap">
+                  <td className="py-4 pr-4 brand-font text-[10px] tracking-widest text-slate-400 whitespace-nowrap">
                     {spec.label}
                   </td>
                   {PRODUCTS.map((p) => {
@@ -73,12 +73,12 @@ const CompareModels: React.FC = () => {
                       <td key={p.id} className="py-4 px-3 text-center">
                         {typeof val === 'boolean' ? (
                           val ? (
-                            <Check className="w-4 h-4 text-sky-600 mx-auto" />
+                            <Check className="w-4 h-4 text-sky-400 mx-auto" />
                           ) : (
                             <Minus className="w-4 h-4 text-slate-600 mx-auto" />
                           )
                         ) : (
-                          <span className="text-xs text-slate-600">{val}</span>
+                          <span className="text-xs text-slate-300">{val}</span>
                         )}
                       </td>
                     );
