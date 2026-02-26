@@ -50,13 +50,13 @@ const fadeInUp = {
 
 const WhySilk: React.FC = () => {
   return (
-    <section className="py-24 px-6 md:px-12 bg-black border-t border-white/5">
+    <section className="py-24 px-6 md:px-12 bg-white border-t border-black/5">
       <motion.div {...fadeInUp} className="mb-16 text-center">
-        <h2 className="brand-font text-3xl md:text-4xl text-white mb-4">Why Silk?</h2>
-        <p className="text-slate-400 text-sm font-light max-w-xl mx-auto leading-relaxed">
+        <h2 className="brand-font text-3xl md:text-4xl text-zinc-900 mb-4">Why Silk?</h2>
+        <p className="text-slate-600 text-sm font-light max-w-xl mx-auto leading-relaxed">
           Cotton is a compromise. Synthetics are a lie. Silk is the only material engineered by nature to protect what matters most.
         </p>
-        <div className="w-20 h-1 bg-sky-500 mx-auto mt-6"></div>
+        <div className="w-20 h-1 bg-sky-600 mx-auto mt-6"></div>
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -69,16 +69,16 @@ const WhySilk: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="group p-6 bg-zinc-900/30 border border-white/5 hover:border-sky-500/20 transition-colors"
+              className="group p-6 bg-zinc-100/30 border border-black/5 hover:border-sky-600/20 transition-colors"
             >
               <div className="flex items-start justify-between mb-4">
-                <Icon className="w-6 h-6 text-sky-400" />
-                <span className="brand-font text-2xl text-white/10 group-hover:text-sky-400/30 transition-colors">
+                <Icon className="w-6 h-6 text-sky-600" />
+                <span className="brand-font text-2xl text-zinc-900/10 group-hover:text-sky-600/30 transition-colors">
                   {b.stat}
                 </span>
               </div>
-              <h3 className="brand-font text-xs text-white tracking-widest mb-3">{b.title}</h3>
-              <p className="text-sm text-slate-400 leading-relaxed font-light">{b.desc}</p>
+              <h3 className="brand-font text-xs text-zinc-900 tracking-widest mb-3">{b.title}</h3>
+              <p className="text-sm text-slate-600 leading-relaxed font-light">{b.desc}</p>
             </motion.div>
           );
         })}

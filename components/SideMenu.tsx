@@ -39,7 +39,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, onNavigate }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/90 backdrop-blur-xl z-[60]"
+            className="fixed inset-0 bg-white/90 backdrop-blur-xl z-[60]"
           />
           <motion.div
             ref={menuRef}
@@ -56,9 +56,9 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, onNavigate }) => {
             className="fixed top-0 left-0 h-full w-full max-w-sm bg-zinc-950 titanium-border border-r z-[70] p-12 flex flex-col"
           >
             <div className="flex justify-between items-center mb-24">
-              <span className="brand-font text-lg text-sky-400">Navigation</span>
+              <span className="brand-font text-lg text-sky-600">Navigation</span>
               <button onClick={onClose}>
-                <X className="w-8 h-8 text-white hover:text-sky-400 transition-colors" />
+                <X className="w-8 h-8 text-zinc-900 hover:text-sky-600 transition-colors" />
               </button>
             </div>
 
@@ -80,21 +80,21 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, onNavigate }) => {
                   }}
                   className="flex items-center justify-between group"
                 >
-                  <span className="brand-font text-3xl text-white group-hover:text-sky-400 transition-colors uppercase">
+                  <span className="brand-font text-3xl text-zinc-900 group-hover:text-sky-600 transition-colors uppercase">
                     {link.label}
                   </span>
-                  <ArrowRight className="w-6 h-6 text-sky-400 opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all" />
+                  <ArrowRight className="w-6 h-6 text-sky-600 opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all" />
                 </motion.button>
               ))}
             </nav>
 
             {/* Swipe hint for mobile */}
             <div className="md:hidden text-center mb-6">
-              <span className="text-[9px] text-slate-400 uppercase tracking-wider">Swipe left to close</span>
+              <span className="text-[9px] text-slate-600 uppercase tracking-wider">Swipe left to close</span>
             </div>
 
             <div className="mt-auto">
-              <p className="brand-font text-[10px] text-slate-400 uppercase tracking-widest leading-loose">
+              <p className="brand-font text-[10px] text-slate-600 uppercase tracking-widest leading-loose">
                 ORY<br/>
                 PREMIUM SILK<br/>
                 EST. 2024

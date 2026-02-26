@@ -35,8 +35,8 @@ const Header: React.FC<HeaderProps> = ({ onMenuOpen, onHome }) => {
           aria-label="Open navigation menu"
           className="group flex items-center gap-3"
         >
-          <Menu className="w-6 h-6 text-white group-hover:text-sky-400 transition-colors" />
-          <span className="brand-font text-[10px] tracking-widest hidden md:block text-white group-hover:text-sky-400">Index</span>
+          <Menu className="w-6 h-6 text-zinc-900 group-hover:text-sky-600 transition-colors" />
+          <span className="brand-font text-[10px] tracking-widest hidden md:block text-zinc-900 group-hover:text-sky-600">Index</span>
         </button>
       </motion.div>
 
@@ -44,7 +44,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuOpen, onHome }) => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         onClick={onHome}
-        className="brand-font text-2xl md:text-3xl font-bold text-white tracking-[0.3em] cursor-pointer"
+        className="brand-font text-2xl md:text-3xl font-bold text-zinc-900 tracking-[0.3em] cursor-pointer"
       >
         ORY
       </motion.div>
@@ -57,14 +57,14 @@ const Header: React.FC<HeaderProps> = ({ onMenuOpen, onHome }) => {
         className="relative group"
       >
         <motion.div animate={controls}>
-          <ShoppingBag className="w-6 h-6 text-white group-hover:text-sky-400 transition-colors" />
+          <ShoppingBag className="w-6 h-6 text-zinc-900 group-hover:text-sky-600 transition-colors" />
         </motion.div>
         {cartCount > 0 && (
           <motion.span 
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             key={cartCount}
-            className="absolute -top-1 -right-1 bg-sky-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold shadow-[0_0_10px_rgba(56,189,248,0.8)]"
+            className="absolute -top-1 -right-1 bg-sky-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold shadow-md shadow-sky-600/30"
           >
             {cartCount}
           </motion.span>

@@ -101,7 +101,7 @@ const ImageZoom: React.FC<ImageZoomProps> = ({ images, activeIndex, alt, isOpen,
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[60] bg-black/95 flex items-center justify-center"
+          className="fixed inset-0 z-[60] bg-white/95 flex items-center justify-center"
           onClick={(e) => { if (e.target === e.currentTarget && scale <= 1) onClose(); }}
         >
           {/* Controls */}
@@ -109,28 +109,28 @@ const ImageZoom: React.FC<ImageZoomProps> = ({ images, activeIndex, alt, isOpen,
             <button
               onClick={handleZoomOut}
               disabled={scale <= MIN_SCALE}
-              className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors disabled:opacity-30"
+              className="p-2 bg-black/10 hover:bg-white/20 rounded-full transition-colors disabled:opacity-30"
               aria-label="Zoom out"
             >
-              <ZoomOut className="w-5 h-5 text-white" />
+              <ZoomOut className="w-5 h-5 text-zinc-900" />
             </button>
-            <span className="text-white/60 text-xs brand-font min-w-[3rem] text-center">
+            <span className="text-zinc-900/60 text-xs brand-font min-w-[3rem] text-center">
               {Math.round(scale * 100)}%
             </span>
             <button
               onClick={handleZoomIn}
               disabled={scale >= MAX_SCALE}
-              className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors disabled:opacity-30"
+              className="p-2 bg-black/10 hover:bg-white/20 rounded-full transition-colors disabled:opacity-30"
               aria-label="Zoom in"
             >
-              <ZoomIn className="w-5 h-5 text-white" />
+              <ZoomIn className="w-5 h-5 text-zinc-900" />
             </button>
             <button
               onClick={onClose}
-              className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors ml-2"
+              className="p-2 bg-black/10 hover:bg-white/20 rounded-full transition-colors ml-2"
               aria-label="Close zoom"
             >
-              <X className="w-5 h-5 text-white" />
+              <X className="w-5 h-5 text-zinc-900" />
             </button>
           </div>
 
@@ -139,17 +139,17 @@ const ImageZoom: React.FC<ImageZoomProps> = ({ images, activeIndex, alt, isOpen,
             <>
               <button
                 onClick={() => goTo(-1)}
-                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors z-10"
+                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-black/10 hover:bg-white/20 rounded-full transition-colors z-10"
                 aria-label="Previous image"
               >
-                <ChevronLeft className="w-6 h-6 text-white" />
+                <ChevronLeft className="w-6 h-6 text-zinc-900" />
               </button>
               <button
                 onClick={() => goTo(1)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors z-10"
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-black/10 hover:bg-white/20 rounded-full transition-colors z-10"
                 aria-label="Next image"
               >
-                <ChevronRight className="w-6 h-6 text-white" />
+                <ChevronRight className="w-6 h-6 text-zinc-900" />
               </button>
             </>
           )}
@@ -190,7 +190,7 @@ const ImageZoom: React.FC<ImageZoomProps> = ({ images, activeIndex, alt, isOpen,
                   key={i}
                   onClick={() => { resetZoom(); onIndexChange(i); }}
                   className={`w-12 h-12 overflow-hidden border-2 transition-all ${
-                    i === activeIndex ? 'border-sky-500 opacity-100' : 'border-transparent opacity-40 hover:opacity-70'
+                    i === activeIndex ? 'border-sky-600 opacity-100' : 'border-transparent opacity-40 hover:opacity-70'
                   }`}
                 >
                   <img src={img} alt="" className="w-full h-full object-cover" />
