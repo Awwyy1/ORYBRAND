@@ -21,15 +21,15 @@ const RecentlyViewed: React.FC<RecentlyViewedProps> = ({ currentProductId }) => 
   if (products.length === 0) return null;
 
   return (
-    <section className="mt-24 pt-16 border-t border-white/5">
+    <section className="mt-24 pt-16 border-t border-black/5">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        <h3 className="brand-font text-lg text-white mb-2">Recently Viewed</h3>
-        <div className="w-12 h-0.5 bg-sky-500 mb-8"></div>
+        <h3 className="brand-font text-lg text-zinc-900 mb-2">Recently Viewed</h3>
+        <div className="w-12 h-0.5 bg-sky-600 mb-8"></div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {products.map((product) => (
@@ -39,7 +39,7 @@ const RecentlyViewed: React.FC<RecentlyViewedProps> = ({ currentProductId }) => 
               className="cursor-pointer group"
               onClick={() => { navigate(`/product/${product!.id}`); window.scrollTo(0, 0); }}
             >
-              <div className="aspect-[3/4] overflow-hidden rounded-sm bg-zinc-900 titanium-border mb-3">
+              <div className="aspect-[3/4] overflow-hidden rounded-sm bg-zinc-100 titanium-border mb-3">
                 <img
                   src={product!.image}
                   alt={product!.name}
@@ -47,7 +47,7 @@ const RecentlyViewed: React.FC<RecentlyViewedProps> = ({ currentProductId }) => 
                   loading="lazy"
                 />
               </div>
-              <p className="brand-font text-xs text-white group-hover:text-sky-400 transition-colors">{product!.name}</p>
+              <p className="brand-font text-xs text-zinc-900 group-hover:text-sky-600 transition-colors">{product!.name}</p>
               <p className="text-[10px] text-slate-500 mt-1">${product!.price}</p>
             </motion.div>
           ))}

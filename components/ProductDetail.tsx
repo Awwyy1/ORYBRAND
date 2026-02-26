@@ -19,16 +19,16 @@ interface ProductDetailProps {
 const FAQAccordion: React.FC<{ question: string; answer: string }> = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="border-b border-white/5 py-6">
+    <div className="border-b border-black/5 py-6">
       <button 
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex justify-between items-center text-left group"
       >
-        <span className="brand-font text-[10px] tracking-widest text-slate-300 group-hover:text-sky-400 transition-colors">
+        <span className="brand-font text-[10px] tracking-widest text-slate-600 group-hover:text-sky-600 transition-colors">
           {question}
         </span>
         <motion.div animate={{ rotate: isOpen ? 180 : 0 }}>
-          <ChevronDown className="w-4 h-4 text-slate-400" />
+          <ChevronDown className="w-4 h-4 text-slate-600" />
         </motion.div>
       </button>
       <AnimatePresence>
@@ -39,7 +39,7 @@ const FAQAccordion: React.FC<{ question: string; answer: string }> = ({ question
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden"
           >
-            <p className="mt-4 text-sm text-slate-400 leading-relaxed font-light">
+            <p className="mt-4 text-sm text-slate-600 leading-relaxed font-light">
               {answer}
             </p>
           </motion.div>
@@ -73,7 +73,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen bg-[#0F0F0F] pt-24 pb-32 px-6 md:px-12 lg:px-24"
+      className="min-h-screen bg-[#F8F9FA] pt-24 pb-32 px-6 md:px-12 lg:px-24"
     >
       <div className="max-w-7xl mx-auto">
         <Breadcrumbs items={[
@@ -85,7 +85,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
           {/* Gallery Section */}
           <div className="lg:col-span-7 space-y-4">
             <div
-              className="aspect-[4/5] titanium-border overflow-hidden bg-zinc-900 rounded-sm relative group cursor-zoom-in"
+              className="aspect-[4/5] titanium-border overflow-hidden bg-zinc-100 rounded-sm relative group cursor-zoom-in"
               onClick={() => setIsZoomOpen(true)}
             >
               <motion.img
@@ -97,8 +97,8 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
                 alt={`${product.name} — ${product.description}, full product view`}
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                <ZoomIn className="w-8 h-8 text-white opacity-0 group-hover:opacity-80 transition-opacity" />
+              <div className="absolute inset-0 bg-white/0 group-hover:bg-white/20 transition-colors flex items-center justify-center">
+                <ZoomIn className="w-8 h-8 text-zinc-900 opacity-0 group-hover:opacity-80 transition-opacity" />
               </div>
             </div>
             <div className="grid grid-cols-4 gap-4">
@@ -107,7 +107,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
                   key={i} 
                   onClick={() => setActiveImage(img)}
                   className={`aspect-square overflow-hidden border transition-all ${
-                    activeImage === img ? 'border-sky-500 ring-2 ring-sky-500/20' : 'border-white/5 opacity-50 hover:opacity-100'
+                    activeImage === img ? 'border-sky-600 ring-2 ring-sky-500/20' : 'border-black/5 opacity-50 hover:opacity-100'
                   }`}
                 >
                   <OptimizedImage src={img} className="w-full h-full object-cover" alt={`${product.name} — detail view ${i + 1} of ${product.gallery.length}`} widths={[200, 400]} sizes="25vw" />
@@ -119,13 +119,13 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
           {/* Info Section */}
           <div className="lg:col-span-5 flex flex-col">
             <div className="mb-8">
-              <span className="brand-font text-[10px] text-sky-400 tracking-[0.3em] mb-2 block">ORY Collection</span>
-              <h1 className="brand-font text-4xl md:text-5xl text-white mb-4">{product.name}</h1>
-              <p className="brand-font text-2xl text-sky-400 tracking-tighter">${product.price}</p>
+              <span className="brand-font text-[10px] text-sky-600 tracking-[0.3em] mb-2 block">ORY Collection</span>
+              <h1 className="brand-font text-4xl md:text-5xl text-zinc-900 mb-4">{product.name}</h1>
+              <p className="brand-font text-2xl text-sky-600 tracking-tighter">${product.price}</p>
             </div>
 
             <div className="mb-12">
-              <p className="text-slate-300 leading-relaxed text-lg font-light">
+              <p className="text-slate-600 leading-relaxed text-lg font-light">
                 {product.longDescription}
               </p>
             </div>
@@ -133,7 +133,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
             <div className="space-y-8 mb-12">
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="brand-font text-[10px] text-slate-400 tracking-widest">Select Your Size</span>
+                  <span className="brand-font text-[10px] text-slate-600 tracking-widest">Select Your Size</span>
                   <SizeChart
                     selectedSize={selectedSize}
                     onSizeSelect={(s) => setSelectedSize(s as any)}
@@ -147,7 +147,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
                       className={`w-14 h-14 brand-font text-xs flex items-center justify-center border transition-all ${
                         selectedSize === size
                           ? 'bg-white text-black border-white shadow-[0_0_20px_rgba(255,255,255,0.2)]'
-                          : 'bg-transparent border-white/10 text-slate-400 hover:border-white/40'
+                          : 'bg-transparent border-black/10 text-slate-600 hover:border-black/20'
                       }`}
                     >
                       {size}
@@ -159,7 +159,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
               <button 
                 onClick={handleAdd}
                 disabled={isAdding}
-                className="w-full py-6 bg-sky-500 hover:bg-sky-400 text-white brand-font text-xs tracking-[0.3em] flex items-center justify-center gap-3 transition-all active:scale-[0.98] relative overflow-hidden"
+                className="w-full py-6 bg-sky-600 hover:bg-sky-500 text-white brand-font text-xs tracking-[0.3em] flex items-center justify-center gap-3 transition-all active:scale-[0.98] relative overflow-hidden"
               >
                 {isAdding ? (
                   <>
@@ -181,22 +181,22 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onClose }) => {
             </div>
 
             {/* Smart FAQ & Logistics */}
-            <div className="space-y-4 pt-12 border-t border-white/5">
+            <div className="space-y-4 pt-12 border-t border-black/5">
               <div className="flex items-center gap-4 mb-8">
-                <Box className="w-5 h-5 text-sky-400" />
-                <span className="brand-font text-[10px] tracking-widest text-white">The Details</span>
+                <Box className="w-5 h-5 text-sky-600" />
+                <span className="brand-font text-[10px] tracking-widest text-zinc-900">The Details</span>
               </div>
               
               <div className="grid grid-cols-2 gap-4 mb-8">
-                <div className="p-4 bg-zinc-900/50 border border-white/5 rounded-sm">
-                  <Truck className="w-4 h-4 text-sky-400 mb-2" />
-                  <p className="brand-font text-[8px] text-slate-400 mb-1">Shipping</p>
-                  <p className="text-[10px] text-white">Free Delivery in 3-5 Days</p>
+                <div className="p-4 bg-zinc-100/50 border border-black/5 rounded-sm">
+                  <Truck className="w-4 h-4 text-sky-600 mb-2" />
+                  <p className="brand-font text-[8px] text-slate-600 mb-1">Shipping</p>
+                  <p className="text-[10px] text-zinc-900">Free Delivery in 3-5 Days</p>
                 </div>
-                <div className="p-4 bg-zinc-900/50 border border-white/5 rounded-sm">
-                  <CreditCard className="w-4 h-4 text-sky-400 mb-2" />
-                  <p className="brand-font text-[8px] text-slate-400 mb-1">Payment</p>
-                  <p className="text-[10px] text-white">Secure Payment</p>
+                <div className="p-4 bg-zinc-100/50 border border-black/5 rounded-sm">
+                  <CreditCard className="w-4 h-4 text-sky-600 mb-2" />
+                  <p className="brand-font text-[8px] text-slate-600 mb-1">Payment</p>
+                  <p className="text-[10px] text-zinc-900">Secure Payment</p>
                 </div>
               </div>
 

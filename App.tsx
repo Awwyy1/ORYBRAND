@@ -20,8 +20,8 @@ const InfoPage = lazy(() => import('./components/InfoPage'));
 const NotFoundPage = lazy(() => import('./components/NotFoundPage'));
 
 const PageLoader: React.FC = () => (
-  <div className="min-h-screen bg-[#0F0F0F] flex items-center justify-center">
-    <div className="w-8 h-8 border-2 border-sky-400 border-t-transparent rounded-full animate-spin" />
+  <div className="min-h-screen bg-[#F8F9FA] flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-sky-600 border-t-transparent rounded-full animate-spin" />
   </div>
 );
 
@@ -52,11 +52,11 @@ const App: React.FC = () => {
 
   return (
     <CartProvider>
-      <div className="relative min-h-screen bg-[#0F0F0F]">
+      <div className="relative min-h-screen bg-[#F8F9FA]">
         {/* H22: Skip-to-content link for keyboard/screen reader users */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-sky-500 focus:text-white focus:px-6 focus:py-3 focus:brand-font focus:text-xs focus:tracking-widest focus:shadow-lg focus:outline-none"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-sky-600 focus:text-white focus:px-6 focus:py-3 focus:brand-font focus:text-xs focus:tracking-widest focus:shadow-lg focus:outline-none"
         >
           Skip to content
         </a>

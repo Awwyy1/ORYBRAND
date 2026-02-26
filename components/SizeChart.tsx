@@ -23,7 +23,7 @@ const SizeChart: React.FC<SizeChartProps> = ({ selectedSize, onSizeSelect }) => 
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 text-slate-400 hover:text-sky-400 transition-colors"
+        className="flex items-center gap-2 text-slate-600 hover:text-sky-600 transition-colors"
       >
         <Ruler className="w-3 h-3" />
         <span className="text-[10px] uppercase tracking-widest underline underline-offset-4">Size Guide</span>
@@ -37,22 +37,22 @@ const SizeChart: React.FC<SizeChartProps> = ({ selectedSize, onSizeSelect }) => 
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50"
+              className="fixed inset-0 bg-white/80 backdrop-blur-sm z-50"
             />
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed inset-x-4 top-1/2 -translate-y-1/2 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-full md:max-w-2xl bg-zinc-950 border border-white/10 z-50 p-8"
+              className="fixed inset-x-4 top-1/2 -translate-y-1/2 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-full md:max-w-2xl bg-zinc-950 border border-black/10 z-50 p-8"
             >
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center gap-3">
-                  <Ruler className="w-5 h-5 text-sky-400" />
-                  <h3 className="brand-font text-lg text-white tracking-widest">Size Guide</h3>
+                  <Ruler className="w-5 h-5 text-sky-600" />
+                  <h3 className="brand-font text-lg text-zinc-900 tracking-widest">Size Guide</h3>
                 </div>
                 <button onClick={() => setIsOpen(false)} aria-label="Close size guide">
-                  <X className="w-5 h-5 text-slate-400 hover:text-white transition-colors" />
+                  <X className="w-5 h-5 text-slate-600 hover:text-zinc-900 transition-colors" />
                 </button>
               </div>
 
@@ -63,7 +63,7 @@ const SizeChart: React.FC<SizeChartProps> = ({ selectedSize, onSizeSelect }) => 
                       {columns.map((col) => (
                         <th
                           key={col}
-                          className="brand-font text-[9px] text-sky-400 tracking-widest pb-4 pr-4 whitespace-nowrap"
+                          className="brand-font text-[9px] text-sky-600 tracking-widest pb-4 pr-4 whitespace-nowrap"
                         >
                           {col}
                         </th>
@@ -80,20 +80,20 @@ const SizeChart: React.FC<SizeChartProps> = ({ selectedSize, onSizeSelect }) => 
                             onSizeSelect?.(row.size);
                             setIsOpen(false);
                           }}
-                          className={`border-t border-white/5 cursor-pointer transition-colors ${
+                          className={`border-t border-black/5 cursor-pointer transition-colors ${
                             isSelected
-                              ? 'bg-sky-500/10'
-                              : 'hover:bg-white/5'
+                              ? 'bg-sky-600/10'
+                              : 'hover:bg-black/5'
                           }`}
                         >
-                          <td className={`py-4 pr-4 brand-font text-xs tracking-widest ${isSelected ? 'text-sky-400' : 'text-white'}`}>
+                          <td className={`py-4 pr-4 brand-font text-xs tracking-widest ${isSelected ? 'text-sky-600' : 'text-zinc-900'}`}>
                             {row.size}
                           </td>
-                          <td className="py-4 pr-4 text-sm text-slate-300 font-mono">{row.waist}</td>
-                          <td className="py-4 pr-4 text-sm text-slate-300 font-mono">{row.hip}</td>
-                          <td className="py-4 pr-4 text-sm text-slate-300 font-mono">{row.thigh}</td>
-                          <td className="py-4 pr-4 text-sm text-slate-300 font-mono">{row.rise}</td>
-                          <td className="py-4 pr-4 text-sm text-slate-400">{row.weight}</td>
+                          <td className="py-4 pr-4 text-sm text-slate-600 font-mono">{row.waist}</td>
+                          <td className="py-4 pr-4 text-sm text-slate-600 font-mono">{row.hip}</td>
+                          <td className="py-4 pr-4 text-sm text-slate-600 font-mono">{row.thigh}</td>
+                          <td className="py-4 pr-4 text-sm text-slate-600 font-mono">{row.rise}</td>
+                          <td className="py-4 pr-4 text-sm text-slate-600">{row.weight}</td>
                         </tr>
                       );
                     })}
@@ -101,8 +101,8 @@ const SizeChart: React.FC<SizeChartProps> = ({ selectedSize, onSizeSelect }) => 
                 </table>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-white/5">
-                <p className="text-[10px] text-slate-400 leading-relaxed">
+              <div className="mt-6 pt-4 border-t border-black/5">
+                <p className="text-[10px] text-slate-600 leading-relaxed">
                   Measurements in inches. If between sizes, we recommend sizing up for a relaxed fit
                   or sizing down for a compression fit. All ORY products feature 4-way stretch silk
                   that adapts to your body.
