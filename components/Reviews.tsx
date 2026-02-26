@@ -50,10 +50,10 @@ const fadeInUp = {
 
 const Reviews: React.FC = () => {
   return (
-    <section className="py-24 px-6 md:px-12 bg-[#F8F9FA]">
+    <section className="py-24 px-6 md:px-12 bg-[#0F0F0F]">
       <motion.div {...fadeInUp} className="mb-16">
         <h2 className="brand-font text-3xl mb-4">What They Say</h2>
-        <div className="w-20 h-1 bg-sky-600"></div>
+        <div className="w-20 h-1 bg-sky-500"></div>
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -64,32 +64,32 @@ const Reviews: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="bg-zinc-100/30 border border-black/5 p-6 flex flex-col"
+            className="bg-zinc-900/30 border border-white/5 p-6 flex flex-col"
           >
             <div className="flex gap-1 mb-4">
               {Array.from({ length: 5 }).map((_, j) => (
                 <Star
                   key={j}
-                  className={`w-3 h-3 ${j < review.rating ? 'text-sky-600 fill-sky-600' : 'text-slate-300'}`}
+                  className={`w-3 h-3 ${j < review.rating ? 'text-sky-400 fill-sky-400' : 'text-slate-700'}`}
                 />
               ))}
             </div>
 
-            <p className="text-sm text-slate-600 leading-relaxed font-light flex-1 mb-6">
+            <p className="text-sm text-slate-300 leading-relaxed font-light flex-1 mb-6">
               "{review.text}"
             </p>
 
-            <div className="border-t border-black/5 pt-4">
-              <p className="brand-font text-[10px] text-zinc-900 tracking-widest">{review.name}</p>
-              <p className="text-[9px] text-slate-600 uppercase tracking-wider mt-1">{review.location}</p>
-              <p className="text-[9px] text-sky-600 uppercase tracking-wider mt-1">{review.product}</p>
+            <div className="border-t border-white/5 pt-4">
+              <p className="brand-font text-[10px] text-white tracking-widest">{review.name}</p>
+              <p className="text-[9px] text-slate-400 uppercase tracking-wider mt-1">{review.location}</p>
+              <p className="text-[9px] text-sky-400 uppercase tracking-wider mt-1">{review.product}</p>
             </div>
           </motion.div>
         ))}
       </div>
 
       <motion.div {...fadeInUp} className="mt-12 text-center">
-        <p className="text-slate-600 text-xs uppercase tracking-widest">
+        <p className="text-slate-400 text-xs uppercase tracking-widest">
           4.8 / 5 average from 1,200+ reviews
         </p>
       </motion.div>

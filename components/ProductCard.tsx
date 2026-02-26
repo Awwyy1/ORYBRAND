@@ -36,7 +36,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       className="group relative cursor-pointer"
       onClick={() => navigate(`/product/${product.id}`)}
     >
-      <div className="relative overflow-hidden aspect-[3/4] titanium-border rounded-sm bg-zinc-100">
+      <div className="relative overflow-hidden aspect-[3/4] titanium-border rounded-sm bg-zinc-900">
         <motion.img
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.6, ease: "circOut" }}
@@ -57,8 +57,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               }}
               className={`w-7 h-7 text-[9px] brand-font flex items-center justify-center border transition-all ${
                 selectedSize === size
-                  ? 'bg-sky-600 border-sky-600 text-white shadow-md shadow-sky-600/20'
-                  : 'bg-white/60 border-black/10 text-zinc-900/60 hover:border-black/20 hover:text-zinc-900'
+                  ? 'bg-sky-500 border-sky-500 text-white shadow-[0_0_10px_rgba(56,189,248,0.5)]'
+                  : 'bg-black/60 border-white/10 text-white/60 hover:border-white/40 hover:text-white'
               }`}
             >
               {size}
@@ -72,8 +72,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             disabled={isAnimating}
             className={`relative w-full py-4 brand-font text-[10px] tracking-[0.2em] flex items-center justify-center gap-2 overflow-hidden transition-all duration-500 ${
               showSuccess
-                ? 'bg-sky-600/10 border-sky-600 text-sky-600'
-                : 'bg-white text-black hover:bg-sky-500 titanium-border'
+                ? 'bg-sky-500/10 border-sky-500 text-sky-400'
+                : 'bg-white text-black hover:bg-sky-400 titanium-border'
             }`}
           >
             <AnimatePresence mode="wait">
@@ -92,7 +92,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                       fill="transparent"
                       stroke="currentColor"
                       strokeWidth="1"
-                      className="text-sky-600/40"
+                      className="text-sky-400/40"
                       initial={{ pathLength: 0, x: -100 }}
                       animate={{
                         pathLength: [0, 1, 0],
@@ -102,7 +102,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                     />
                   </svg>
                   <motion.div
-                    className="absolute inset-0 bg-sky-600/20"
+                    className="absolute inset-0 bg-sky-400/20"
                     initial={{ x: "-100%" }}
                     animate={{ x: "100%" }}
                     transition={{ duration: 0.8, ease: "linear", repeat: Infinity }}
@@ -134,10 +134,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
       <div className="mt-6 flex justify-between items-start">
         <div>
-          <h3 className="brand-font text-sm text-zinc-900 mb-1 group-hover:text-sky-600 transition-colors">{product.name}</h3>
-          <p className="text-[10px] uppercase text-slate-600 tracking-widest">{product.description}</p>
+          <h3 className="brand-font text-sm text-white mb-1 group-hover:text-sky-400 transition-colors">{product.name}</h3>
+          <p className="text-[10px] uppercase text-slate-400 tracking-widest">{product.description}</p>
         </div>
-        <p className="brand-font text-sky-600 text-sm">${product.price}</p>
+        <p className="brand-font text-sky-400 text-sm">${product.price}</p>
       </div>
     </div>
   );

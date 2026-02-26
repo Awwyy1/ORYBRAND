@@ -10,7 +10,7 @@ const Hero: React.FC = () => {
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   return (
-    <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-white">
+    <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-black">
       <div className="absolute inset-0 z-0">
         <picture>
           <source
@@ -27,7 +27,7 @@ const Hero: React.FC = () => {
             className="w-full h-full object-cover opacity-40 mix-blend-luminosity scale-110"
           />
         </picture>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#F8F9FA]/50 to-[#F8F9FA]"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0F0F0F]/50 to-[#0F0F0F]"></div>
       </div>
 
       <motion.div
@@ -39,12 +39,12 @@ const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8 }}
-          className="text-xs md:text-sm text-slate-600 tracking-[0.4em] uppercase mb-6"
+          className="text-xs md:text-sm text-slate-400 tracking-[0.4em] uppercase mb-6"
         >
           Premium Silk Underwear for Men
         </motion.p>
 
-        <h1 className="brand-font text-xl md:text-4xl tracking-[0.35em] text-sky-600 mb-8 uppercase">
+        <h1 className="brand-font text-xl md:text-4xl tracking-[0.35em] text-sky-400 mb-8 uppercase">
           FOR THOSE WITH BALLS
         </h1>
 
@@ -53,7 +53,7 @@ const Hero: React.FC = () => {
             whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(56, 189, 248, 0.4)' }}
             whileTap={{ scale: 0.95 }}
             onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
-            className="bg-sky-600 hover:bg-sky-500 px-10 py-4 brand-font text-xs tracking-widest text-white transition-all duration-300"
+            className="bg-sky-500 hover:bg-sky-400 px-10 py-4 brand-font text-xs tracking-widest text-white transition-all duration-300"
           >
             Shop the Collection
           </motion.button>
@@ -61,7 +61,7 @@ const Hero: React.FC = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate('/technology')}
-            className="glass titanium-border px-10 py-4 brand-font text-xs tracking-widest text-zinc-900 hover:bg-black/5 transition-all duration-300"
+            className="glass titanium-border px-10 py-4 brand-font text-xs tracking-widest text-white hover:bg-white/5 transition-all duration-300"
           >
             Our Technology
           </motion.button>
