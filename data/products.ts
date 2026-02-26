@@ -7,11 +7,11 @@ export const PRODUCTS: Product[] = [
     price: 85,
     description: 'Black Obsidian Silk',
     longDescription: "Engineered for complete thermal regulation and absolute discretion. Our Stealth series utilizes a bespoke Obsidian weave that traps zero moisture while providing a weightless, high-tensile fit. The ultimate base layer for those who don't settle for less.",
-    image: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&q=80&w=1200',
+    image: '/products/stealth/main.jpg',
     gallery: [
-      'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&q=80&w=1200',
-      'https://images.unsplash.com/photo-1618354691438-25bc04584c23?auto=format&fit=crop&q=80&w=1200',
-      'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&q=80&w=1200'
+      '/products/stealth/1.jpg',
+      '/products/stealth/2.jpg',
+      '/products/stealth/3.jpg'
     ],
     sizes: ['S', 'M', 'L', 'XL'],
     faq: [
@@ -26,11 +26,11 @@ export const PRODUCTS: Product[] = [
     price: 95,
     description: 'Matte Grey Fusion',
     longDescription: 'A technical marvel in textile engineering. The Carbon series features a matte-finish silk blend that offers superior durability without compromising on the signature ORY softness. Designed for high-performance durability.',
-    image: 'https://images.unsplash.com/photo-1578587018452-892bacefd3f2?auto=format&fit=crop&q=80&w=1200',
+    image: '/products/carbon/main.jpg',
     gallery: [
-      'https://images.unsplash.com/photo-1578587018452-892bacefd3f2?auto=format&fit=crop&q=80&w=1200',
-      'https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&q=80&w=1200',
-      'https://images.unsplash.com/photo-1595341888016-a392ef81b7de?auto=format&fit=crop&q=80&w=1200'
+      '/products/carbon/1.jpg',
+      '/products/carbon/2.jpg',
+      '/products/carbon/3.jpg'
     ],
     sizes: ['S', 'M', 'L', 'XL'],
     faq: [
@@ -44,11 +44,11 @@ export const PRODUCTS: Product[] = [
     price: 85,
     description: 'Cold Silver Weave',
     longDescription: 'Infused with cool-touch technology, the Ice series is specifically woven to lower perceived skin temperature by 1.5 degrees. Perfect for intense environments where thermal management is critical.',
-    image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&q=80&w=1200',
+    image: '/products/ice/main.jpg',
     gallery: [
-      'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&q=80&w=1200',
-      'https://images.unsplash.com/photo-1558171814-2e52eb2bfb36?auto=format&fit=crop&q=80&w=1200',
-      'https://images.unsplash.com/photo-1617952739858-28043cec9b50?auto=format&fit=crop&q=80&w=1200'
+      '/products/ice/1.jpg',
+      '/products/ice/2.jpg',
+      '/products/ice/3.jpg'
     ],
     sizes: ['S', 'M', 'L', 'XL'],
     faq: [
@@ -62,11 +62,11 @@ export const PRODUCTS: Product[] = [
     price: 110,
     description: 'Royal Deep Blue',
     longDescription: 'The pinnacle of the collection. The Midnight series uses ultra-dense silk harvesting to create a rich, light-absorbing blue that exudes authority and sophistication. Our heaviest silk weight for maximum luxury.',
-    image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&q=80&w=1200',
+    image: '/products/midnight/main.jpg',
     gallery: [
-      'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&q=80&w=1200',
-      'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&q=80&w=1200',
-      'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?auto=format&fit=crop&q=80&w=1200'
+      '/products/midnight/1.jpg',
+      '/products/midnight/2.jpg',
+      '/products/midnight/3.jpg'
     ],
     sizes: ['S', 'M', 'L', 'XL'],
     faq: [
